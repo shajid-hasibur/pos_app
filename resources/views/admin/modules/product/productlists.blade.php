@@ -39,12 +39,8 @@ All Products- Admin Dashboard
 				<p class="btn mt-0 task-icon"><i class="fa fa-barcode"></i></p>
 			</div>
 			<h2 class="blue task-label">All Products</h2>
-
 			<div class="box-icon border-left" style="height:100%">
 				<div class="dropdown mt-0">
-					
-
-					
 					<p class="task-btn text_p_primary" title="Actions">
 						<i class="fa fa-th-list"></i>
 					</button>
@@ -59,7 +55,6 @@ All Products- Admin Dashboard
 							<i class="fa fa-file-pdf"></i> Export PDF
 						</a>
 					</div>
-					
 				</div>
 			</div>
 		</div>
@@ -77,7 +72,6 @@ All Products- Admin Dashboard
 						<div class="col-4 mt-1">
 							<input type="text" class="col-10 m-1 mx-0" id="searchKey" style="float: right;" placeholder="Search product by name or code ">
 							<div id="search_list" class="col-10 px-0" style="position: absolute; margin-top: 35px;float: right;right:0px;z-index: 1;background: white;box-shadow: 0 0 15px 1px #dee2e6;display: none;">
-								
 							</div>
 						</div>
 					</div>

@@ -1,12 +1,13 @@
 @extends('admin.layouts.adminmaster')
+
 @section('adminTitle')
 Supplier List- Admin Dashboard
-@stop
+@endsection
+
 @section('adminContent')
 <div class="col-md-12 mt-5 pt-3 border-bottom">
 	<div class="text-dark px-0" >
 		<p class="mb-1"><a href="{{route('admin.dashboard')}}"><i class="fa fa-home"></i> Dashboard / </a><a href="{{route('admin.supplierList')}}" class="active-slink">Supplier list</a><span class="top-date">Total Suppliers: {{$suppliers->total()}}</span></p>
-
 	</div>
 </div>
 
@@ -14,29 +15,19 @@ Supplier List- Admin Dashboard
 	<div class="box">
 		<div class="box-header">
 			<div class="box-icon-left border-right" style="height:100%">
-				
-					
-
-					<p class="btn mt-0 task-icon"><i class="fa fa-users"></i></p>
-				
+				<p class="btn mt-0 task-icon"><i class="fa fa-users"></i></p>
 			</div>
 			<h2 class="blue task-label">Supplier</h2>
-
 			<div class="box-icon border-left" style="height:100%">
 				<div class="dropdown mt-0">
-					
-
-					
-						<p class="task-btn text_p_primary" title="Actions">
-							<i class="fa fa-th-list"></i>
-						</p>
-						<div class="task-menu p-2">
-							<a class="dropdown-item pl-0" type="button" href="{{route('admin.supplierAdd')}}">
-							 <i class="fa-fw fa fa-plus-circle"></i> Add Supplier
-							</a>
-							
-						</div>
-					
+					<p class="task-btn text_p_primary" title="Actions">
+						<i class="fa fa-th-list"></i>
+					</p>
+					<div class="task-menu p-2">
+						<a class="dropdown-item pl-0" type="button" href="{{route('admin.supplierAdd')}}">
+							<i class="fa-fw fa fa-plus-circle"></i> Add Supplier
+						</a>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -55,7 +46,6 @@ Supplier List- Admin Dashboard
 								<th class="font-weight-bold" scope="col">Country</th>
 								<th class="font-weight-bold" scope="col">City</th>
 								<th class="font-weight-bold" scope="col">Actions</th>
-
 							</tr>
 						</thead>
 						<tbody>
@@ -79,17 +69,14 @@ Supplier List- Admin Dashboard
 							    </td>
 							</tr>
 							@endforeach
-							</tbody>
-						</table>
-						{{$suppliers->links()}}
+						</tbody>
+					</table>
+					<br>
+					{{ $suppliers->links() }}
 				</div>
 			</div>
 		</div>
 	</div>
-
 </div>
-
-</div>
-
-@stop
+@endsection
 

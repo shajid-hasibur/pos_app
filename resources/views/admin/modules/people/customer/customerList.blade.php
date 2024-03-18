@@ -28,7 +28,6 @@ a:hover{
 <div class="col-md-12 mt-5 pt-3 border-bottom">
 	<div class="text-dark px-0" >
 		<p class="mb-1"><a href="{{route('admin.dashboard')}}"><i class="fa fa-home"></i> Dashboard / </a><a href="" class="active-slink">Customer list</a><span class="top-date">Total Customers : {{$customers->total()}}</span></p>
-
 	</div>
 </div>
 
@@ -36,11 +35,7 @@ a:hover{
 	<div class="box">
 		<div class="box-header">
 			<div class="box-icon-left border-right" style="height:100%">
-				
-					
-
-					<p class="btn mt-0 task-icon"><i class="fa fa-users"></i></p>
-				
+				<p class="btn mt-0 task-icon"><i class="fa fa-users"></i></p>
 			</div>
 			<h2 class="blue task-label">Customers</h2>
 

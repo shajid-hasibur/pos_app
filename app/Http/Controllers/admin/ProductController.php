@@ -94,6 +94,7 @@ class ProductController extends Controller
         } else {
             $image = null;
         }
+
         $product = new Products;
         $product->name = $request->name;
         $product->code = $request->code;
@@ -292,6 +293,7 @@ class ProductController extends Controller
             ->leftjoin('units', 'units.id', '=', 'products.unit')
             ->select('products.*', 'categories.name as catName', 'brands.name as bName', 'units.name as uName', 'units.id as unit')
             ->where('products.id', $id)->first();
+
         $totalPurchase = DB::table('purchase_product_lists')->where('pro_id', $id)->sum('qty');
         $totalsale = DB::table('sales_products')->where('pro_id', $id)->sum('qty');
         $start_inventory = DB::table('products')->where('id', $id)->value('start_inventory');

@@ -14,14 +14,9 @@ Billers List- Admin Dashboard
 	<div class="box">
 		<div class="box-header">
 			<div class="box-icon-left border-right" style="height:100%">
-				
-				
-
 				<p class="btn mt-0 task-icon"><i class="fa fa-users"></i></p>
-				
 			</div>
 			<h2 class="blue task-label">Biller</h2>
-
 			<div class="box-icon border-left" style="height:100%">
 				<div class="dropdown mt-0">
 					<p class="task-btn text_p_primary" title="Actions">
@@ -31,9 +26,7 @@ Billers List- Admin Dashboard
 						<a class="dropdown-item pl-0" type="button" data-toggle="modal" data-target=".bd-example-modal-lg">
 							<i class="fa-fw fa fa-plus-circle"></i> Add New Biller
 						</a>
-						
 					</div>
-					
 				</div>
 			</div>
 		</div>
@@ -51,7 +44,6 @@ Billers List- Admin Dashboard
 								<th class="font-weight-bold" scope="col">Phone</th>
 								<th class="font-weight-bold" scope="col">City</th>
 								<th class="font-weight-bold" scope="col">Actions</th>
-
 							</tr>
 						</thead>
 						<tbody>
@@ -63,17 +55,14 @@ Billers List- Admin Dashboard
 								<td>
 									@if(!empty($biller->logo))
 									@else
-									
-									<img src="{{ asset('/')}}public/admin/defaultIcon/no_image.png" alt="No-image" class="img-rounded" style="width:35px;height:35px;">
-									
+									<img src="{{ asset('admin/defaultIcon/no_image.png')}}" alt="No-image" class="img-rounded" style="width:35px;height:35px;">
 									@endif
 								</td>
-								<td>{{$biller->name}}</td>
-								<td>{{$biller->email}}</td>
-								<td>{{$biller->phone}}</td>
+								<td>{{ $biller->name }}</td>
+								<td>{{ $biller->email }}</td>
+								<td>{{ $biller->phone }}</td>
 								<td><p class="badge  bg_secondary_teal">{{$biller->city}}</p></td>
 								<td style="width:120px;">
-											
 									<button class="btn  bg_secondary_teal p-1 px-2 mb-0 v-btn viewBillerbtn"  style="font-size: 13px;cursor:pointer;" title="User Details" value="{{$biller->id}}"> <i class="fa-fw fa fa-eye"></i></button>
 									<button class="btn bg_p_primary p-1 mb-0 px-2 edit-btn editBillerbtn" value="{{$biller->id}}" style="font-size: 13px;cursor:pointer;" title="Edit User"> <i class="fa fa-edit" ></i></button>
 
@@ -101,8 +90,6 @@ Billers List- Admin Dashboard
 											});
 										});
 									</script>
-									
-									
 								</td>
 							</tr>
 							@endforeach

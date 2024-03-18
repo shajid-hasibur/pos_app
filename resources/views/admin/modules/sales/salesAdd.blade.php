@@ -32,14 +32,10 @@ Add Sale- Admin Dashboard
 	<div class="box">
 		<div class="box-header">
 			<div class="box-icon-left border-right" style="height:100%">
-				
-
-
 				<p class="btn mt-0 task-icon"><i class="fa fa-barcode"></i></p>
-				
 			</div>
-			<h2 class="blue task-label">Add Sale</h2>
 
+			<h2 class="blue task-label">Add Sale</h2>
 			<div class="box-icon border-left" style="height:100%">
 				<div class="dropdown mt-0">
 					<p class="text_p_primary"title="Actions">
@@ -49,9 +45,7 @@ Add Sale- Admin Dashboard
 						<a class="dropdown-item pl-0" type="button" data-toggle="modal" data-target=".bd-example-modal-lg">
 							<i class="fa-fw fa fa-list"></i>Sales list
 						</a>
-
 					</div>
-					
 				</div>
 			</div>
 		</div>
@@ -60,8 +54,6 @@ Add Sale- Admin Dashboard
 				<div class="col-lg-12">
 					<p class="introtext">Please fill in the information below. The field labels marked with * are required input fields.</p>
 				</div>
-
-				
 				<div class="col-sm-12 col-md-12 col-xs-12 p-3 border">
 					<!-- <form method="post" action="{{route('admin.sales.MakeSale')}}">
 						@csrf -->
@@ -681,13 +673,13 @@ $("#customerId").on('change',function(){
      //endajax
  });
     //select 2
-    $('#pro_id').select2({
-    	theme: "bootstrap"
-    });
-    //select 2
-    $('#customerId').select2({
-    	theme: "bootstrap"
-    });
+    // $('#pro_id').select2({
+    // 	theme: "bootstrap"
+    // });
+    // //select 2
+    // $('#customerId').select2({
+    // 	theme: "bootstrap"
+    // });
 
   //update product qty
   $(".pro_qty").on('change',function(){
