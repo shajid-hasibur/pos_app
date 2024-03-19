@@ -17,6 +17,8 @@ Route::group(['middleware' => 'auth:admin', 'namespace' => 'admin'], function ()
 	Route::post('/search-purchase-by-id', 'PurchaseController@searchPurchaseByCode')->name('admin.purchase.searchPurchase');
 	Route::get('/purchase-details-by-id/{id}', 'PurchaseController@purchaseDetailsById')->name('admin.purchase.purchaseDetailsById');
 	Route::post('/search-purchase-by-date', 'PurchaseController@searchPurchasedate')->name('admin.purchase.searchPurchasedate');
+	Route::get('/get/product-data', 'PurchaseController@searchProduct')->name('admin.purchase.searchProduct');
+	Route::get('/get/supplier-data', 'PurchaseController@searchSupplier')->name('admin.purchase.searchSupplier');
 	//delte purchase
 	Route::post('delete-purchase', 'PurchaseController@purchaseDelete')->name('admin.purchase.purchaseDelete');
 	//Purchaase /expense

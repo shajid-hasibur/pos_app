@@ -23,7 +23,7 @@
 		<div class="col-2">
 			<center>
 				@if(!empty($customerInfo->image))
-				<img src="{{ asset('/')}}{{$customerInfo->image}}" alt="{{$customerInfo->name}}" class="img-rounded" style="width:100px;height:100px;">
+				<img src="{{ asset($customerInfo->image) }}" alt="{{ $customerInfo->name }}" class="img-rounded" style="width:100px;height:100px;">
 				@else
 				<img src="{{ asset('admin/defaultIcon/user.png') }}" alt="No-image" class="img-rounded" style="width:100px;height:100px;">
 				@endif
@@ -129,45 +129,40 @@
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
        <div class="modal-body">
-
-        				<form method="post" action="{{route('admin.customerdue.returnSalesDue')}}">
-					@csrf
+        	<form method="post" action="{{route('admin.customerdue.returnSalesDue')}}">
+			@csrf
+			<input type="hidden" name="customer_id" value="{{$customerInfo->id}}">
+			<div class="form-row">
+				<div class="form-group col-12">
+					<label>Paid Date</label>
+					<input type="date" class="form-control" name="paid_date">
 					<input type="hidden" name="customer_id" value="{{$customerInfo->id}}">
-				  <div class="form-row">
-				  	<div class="form-group col-12">
-				   	<label>Paid Date</label>
-				   	<input type="date" class="form-control" name="paid_date">
-				   	<input type="hidden" name="customer_id" value="{{$customerInfo->id}}">
-				   </div>
-				   <div class="form-group col-12">
-				   	<label>Current Due</label>
-				   	<input type="text" class="form-control" name="current_due" value="{{$currentDue}}" readonly="">
-				   	<input type="hidden" name="customer_id" value="{{$customerInfo->id}}">
-				   </div>
-				    <div class="form-group col-md-12">
-				      <label>Payment Method</label>
-				       <select class="custom-select" name="payment_method">
-				       	
-					 <option value="cash">Cash</option>
-					 
+				</div>
+				<div class="form-group col-12">
+					<label>Current Due</label>
+					<input type="text" class="form-control" name="current_due" value="{{$currentDue}}" readonly="">
+					<input type="hidden" name="customer_id" value="{{$customerInfo->id}}">
+				</div>
+				<div class="form-group col-md-12">
+					<label>Payment Method</label>
+					<select class="custom-select" name="payment_method">
+						<option value="cash">Cash</option>
 					</select>
-				    </div>
-				     <div class="form-group col-md-12">
-				      <label>Amount</label>
-				       <input type="number" class="form-control" name="amount" placeholder="Paid Cash">
-				    </div>
-				    <div class="form-group col-md-12">
-				      <label>Payment Note</label>
-				       <textarea class="form-control" rows="3" name="paymentNote"></textarea> 
-				    </div>
-				  </div>
-				
-      </div>
-      <div class="modal-footer">
-        
-         <input type="submit" class="btn btn-primary" value="Return Due">
-         </form>
-      </div>
+				</div>
+					<div class="form-group col-md-12">
+					<label>Amount</label>
+					<input type="number" class="form-control" name="amount" placeholder="Paid Cash">
+				</div>
+				<div class="form-group col-md-12">
+					<label>Payment Note</label>
+					<textarea class="form-control" rows="3" name="paymentNote"></textarea> 
+				</div>
+			</div>
+      	</div>
+		<div class="modal-footer">
+			<input type="submit" class="btn btn-primary" value="Return Due">
+			</form>
+		</div>
     </div>
     </div>
   </div>
@@ -181,37 +176,33 @@
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
        <div class="modal-body">
-
-   							<table class="table table-bordered table-hover">
-						<thead class="bg_p_primary">
-							<tr>
-								<th class="font-weight-bold" scope="col">#</th>
-								<th class="font-weight-bold" scope="col">Date</th>
-								<th class="font-weight-bold" scope="col">Amount</th>
-								<th class="font-weight-bold" scope="col">Balance Before Pay</th>
-								<th class="font-weight-bold" scope="col">Balance After Pay</th>
-								<th class="font-weight-bold" scope="col">Payment Note</th>
-								
-
-							</tr>
-						</thead>
-						<tbody>
-							<?php $counter=0;?>
-                           @foreach($duePaymentHistory as $payhis)
-                           <?php $counter++;?>
-							<tr>
-								<td>{{$counter}}</td>
-								<td>{{$payhis->paid_date}}</td>
-								<td style="text-align: right;">{{number_format($payhis->paid_amount,2)}}</td>
-								<td style="text-align: right;">{{number_format($payhis->current_due,2)}}</td>
-								<td style="text-align: right;">{{number_format($payhis->balance,2)}}</td>
-								<td>{{$payhis->payment_note}}</td>
-							</tr>
-							@endforeach
-						</tbody>
-					</table>
-				
-      </div>
+   			<table class="table table-bordered table-hover">
+				<thead class="bg_p_primary">
+					<tr>
+						<th class="font-weight-bold" scope="col">#</th>
+						<th class="font-weight-bold" scope="col">Date</th>
+						<th class="font-weight-bold" scope="col">Amount</th>
+						<th class="font-weight-bold" scope="col">Balance Before Pay</th>
+						<th class="font-weight-bold" scope="col">Balance After Pay</th>
+						<th class="font-weight-bold" scope="col">Payment Note</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php $counter=0;?>
+					@foreach($duePaymentHistory as $payhis)
+					<?php $counter++;?>
+					<tr>
+						<td>{{$counter}}</td>
+						<td>{{$payhis->paid_date}}</td>
+						<td style="text-align: right;">{{number_format($payhis->paid_amount,2)}}</td>
+						<td style="text-align: right;">{{number_format($payhis->current_due,2)}}</td>
+						<td style="text-align: right;">{{number_format($payhis->balance,2)}}</td>
+						<td>{{$payhis->payment_note}}</td>
+					</tr>
+					@endforeach
+				</tbody>
+			</table>
+        </div>
       <div class="modal-footer">
         
          

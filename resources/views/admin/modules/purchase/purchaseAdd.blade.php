@@ -25,14 +25,9 @@ Add Purchase- Admin Dashboard
 	<div class="box">
 		<div class="box-header">
 			<div class="box-icon-left border-right" style="height:100%">
-				
-
-
 				<p class="btn mt-0 task-icon"><i class="fa fa-barcode"></i></p>
-				
 			</div>
 			<h2 class="blue task-label">Add Purchase</h2>
-
 			<div class="box-icon border-left" style="height:100%">
 				<div class="dropdown mt-0">
 					<p class="task-btn text_p_primary text_p_primary"title="Actions">
@@ -42,9 +37,7 @@ Add Purchase- Admin Dashboard
 						<a class="dropdown-item pl-0" type="button" data-toggle="modal" data-target=".bd-example-modal-lg">
 							<i class="fa-fw fa fa-list"></i> Purchase list
 						</a>
-
 					</div>
-					
 				</div>
 			</div>
 		</div>
@@ -53,8 +46,6 @@ Add Purchase- Admin Dashboard
 				<div class="col-lg-12">
 					<p class="introtext">Please fill in the information below. The field labels marked with * are required input fields.</p>
 				</div>
-
-				
 				<div class="col-sm-12 col-md-12 col-xs-12">
 					<div class="form-row">
 						<div class="form-group col-md-12">
@@ -64,10 +55,7 @@ Add Purchase- Admin Dashboard
 									<div class="input-group-text p-0" style="margin-top:-3px;"><p class="btn bg_p_primary mb-0 py-1 proAddBtn" style="border-radius:0px;font-size:20px;cursor:pointer;">+</p></div>
 								</div>
 								<select class="custom-select" id="pro_id">
-									<option selected>Select Product</option>
-									@foreach($products as $product)
-									<option value="{{$product->id}}">{{$product->name}}</option>
-									@endforeach
+									<option selected value="">Select Product</option>
 								</select>
 							</div>
 						</div>
@@ -137,11 +125,8 @@ Add Purchase- Admin Dashboard
 								<label>Paying By</label>
 								<select name="paidBy" class="form-control">
 									<option value="cash">Cash</option>
-									
 								</select>
-								
 							</div>
-							
 							<div class="form-group col-md-4">
 								<label>Payment</label>
 								<input type="number" class="form-control" name="paid_amount" placeholder="Paid Amount">
@@ -150,140 +135,155 @@ Add Purchase- Admin Dashboard
 							<div class="form-group col-md-4">
 								<label>Discount</label>
 								<input type="number" class="form-control" name="discount" placeholder="discount">
-								
 							</div>
-							
 						</div>
 						<hr>
-						<div class="form-row">
-							<div class="form-group col-md-4">
-								<label>Date *</label>
-								<input type="date" class="form-control" name="purchase_date" placeholder="Date">
-							</div>
-							<div class="form-group col-md-4">
-								<label>Reference</label>
-								<input type="Text" class="form-control" name="reference" placeholder="Reference">
-							</div>
-							<div class="form-group col-md-4">
-								<label>Store</label>
-								<select class="custom-select" name="store_id">
-									@foreach($stores as $store)
-									<option value="{{$store->id}}">{{$store->name}}</option>
-									@endforeach
-
-								</select>
-							</div>
-
-							<div class="form-group col-md-12">
-								<label>Supplier *</label>
-								<select class="custom-select" name="supplier_id">
-									<option selected>Select Supplier</option>
-									@foreach($suppliers as $supplier)
-									<option value="{{$supplier->id}}">{{$supplier->company}}({{$supplier->name}})</option>
-									@endforeach
-								</select>
-							</div>
-
-							<div class="form-group col-md-6">
-								<label>Product Received ?</label>
-								<select class="custom-select" name="is_received">
-									<option value="1">Received</option>
-									<option value="0">Not Received</option>
-								</select>
-							</div>
-
-							<div class="form-group col-md-6">
-								<label>Document</label>
-								<input type="file" class="form-control-file"name="documents">
-								
-							</div>
+					<div class="form-row">
+						<div class="form-group col-md-4">
+							<label>Date *</label>
+							<input type="date" class="form-control" name="purchase_date" placeholder="Date">
 						</div>
-
+						<div class="form-group col-md-4">
+							<label>Reference</label>
+							<input type="Text" class="form-control" name="reference" placeholder="Reference">
+						</div>
+						<div class="form-group col-md-4">
+							<label>Store</label>
+							<select class="custom-select" name="store_id">
+								@foreach($stores as $store)
+								<option value="{{$store->id}}">{{$store->name}}</option>
+								@endforeach
+							</select>
+						</div>
+						<div class="form-group col-md-12">
+							<label>Supplier *</label>
+							<select class="custom-select" name="supplier_id" id="supplier_id">
+								<option selected value="">Select Supplier</option>
+								{{-- @foreach($suppliers as $supplier)
+								<option value="{{$supplier->id}}">{{$supplier->company}}({{$supplier->name}})</option>
+								@endforeach --}}
+							</select>
+						</div>
+						<div class="form-group col-md-6">
+							<label>Product Received ?</label>
+							<select class="custom-select" name="is_received">
+								<option value="1">Received</option>
+								<option value="0">Not Received</option>
+							</select>
+						</div>
+						<div class="form-group col-md-6">
+							<label>Document</label>
+							<input type="file" class="form-control-file"name="documents">
+						</div>
 						<div class="form-group col-md-12">
 							<label>Note</label>
 							<textarea class="form-control" name="note" rows="3"></textarea>
 						</div>
-
-
-						<div class="form-group">
-							<button type="submit" class="btn bg_p_primary">Submit</button>
+						<div class="form-group col-12">
+							<button type="submit" class="btn bg_p_primary btn-block">Submit</button>
 						</div>
 					</div>
 				</form>
-
+				</div>
 			</div>
-
-			
 		</div>
-	</div>
 </div>
 
 </div>
 <script>
+$(document).ready(function(){
+	//add product to purchase list 
+	$(".proAddBtn").click(function(){
+		var pro_id=$("#pro_id").val();
 
-	$(document).ready(function(){
-
-		//add productr to purchase list 
-		$(".proAddBtn").click(function(){
-			var pro_id=$("#pro_id").val();
-     //ajax
-
-     $.ajax({
-     	headers: {
-     		'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-     	},
-     	url:"{{route('admin.purchase.productAddToPurchase')}}",
-     	type:"POST",
-     	data:{'pro_id':pro_id},
-        //dataType:'json',
-        success:function(data){
-        	console.log(data);
-        	if(data==1){
-        		location.reload(true);
-        	}else{
-        		alert('Something Went wrong Please Try Again.');
-        	}
-
-        },
-        error:function(){
-        	alert("error occured");
-        }
-    });
-     //endajax
- });
+		$.ajax({
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			},
+			url:"{{route('admin.purchase.productAddToPurchase')}}",
+			type:"POST",
+			data:{'pro_id':pro_id},
+			success:function(data){
+				console.log(data);
+				if(data==1){
+					location.reload(true);
+				}else{
+					alert('Something Went wrong Please Try Again.');
+				}
+			},
+			error:function(){
+				alert("error occured");
+			}
+		});
+	});
     //select 2
     $('#pro_id').select2({
-    	theme: "bootstrap"
+    	theme: "bootstrap",
+		ajax:{
+			url: "{{ route('admin.purchase.searchProduct') }}",
+			dataType: 'json',
+            delay: 250,
+            processResults: function(data) {
+				return {
+					results: $.map(data, function(item) {
+						return {
+							text: item.name,
+							id: item.id
+						}
+					})
+				};
+			},
+			cache: true
+		}
     });
 
+	$('#supplier_id').select2({
+		theme: "bootstrap",
+		ajax:{
+			url: "{{ route('admin.purchase.searchSupplier') }}",
+			dataType: 'json',
+            delay: 250,
+            processResults: function(data) {
+				return {
+					results: $.map(data, function(item) {
+						return {
+							text: item.company,
+							id: item.id
+						}
+					})
+				};
+			},
+			cache: true
+		}
+	});
+
   //update product qty
-  $(".pro_qty").on('change',function(){
-  	var rowId=$(this).data('qty');
-  	var qty=$(this).val();
-  	if($.isNumeric(qty)){
-//ajax
-if(qty!=0){
-	$.ajax({
-		headers: {
-			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-		},
-		url:"{{route('admin.purchase.updateQty')}}",
-		type:"POST",
-		data:{'rowId':rowId,'qty':qty},
-        //dataType:'json',
-        success:function(data){
-        	location.reload(true);
-        },
-        error:function(){
-        	alert("Something Went wrong.Please try again.");
-        }
-    });
-}
-  //end ajax
-}else{
-	alert('Please Enter Correct Number.');
-}
-});  
+	$(".pro_qty").on('change',function(){
+		var rowId=$(this).data('qty');
+		var qty=$(this).val();
+		if($.isNumeric(qty)){
+			if(qty!=0){
+				$.ajax({
+					headers: {
+						'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+					},
+					url:"{{route('admin.purchase.updateQty')}}",
+					type:"POST",
+					data:{'rowId':rowId,'qty':qty},
+					//dataType:'json',
+					success:function(data){
+						location.reload(true);
+					},
+					error:function(){
+						alert("Something Went wrong.Please try again.");
+					}
+				});
+			}
+
+		}else{
+			alert('Please Enter Correct Number.');
+		}
+	});  
 });
 
 </script>

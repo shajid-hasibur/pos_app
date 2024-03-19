@@ -8,11 +8,11 @@ use App\CustomerGroup;
 use App\Customer;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\DB;
-use Image;
-use File;
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\File;
 use App\SalesDueReturn;
 use App\Payment;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 
 class CustomerController extends Controller
 {
@@ -98,9 +98,7 @@ class CustomerController extends Controller
    //ajax search customer by mobile id
    public function searchCustomer(Request $request)
    {
-
       $key = $request->key;
-
       $customers = DB::table('customers')
          ->where('id', 'like', '%' . $request->key . '%')
          ->orWhere('name', 'like', '%' . $request->key . '%')
@@ -124,8 +122,12 @@ class CustomerController extends Controller
    {
       $productImage = $request->file('image');
       $imageName = $productImage->getClientOriginalName();
-      $directory = 'public/uploads/customer_image/';
+      $directory = 'uploads/customer_image/';
       $imageUrl = $directory . $imageName;
+
+      if (!file_exists($directory)) {
+         mkdir($directory, 0755, true);
+      }
 
       Image::make($productImage)->resize(80, 80)->save($imageUrl);
 
@@ -171,12 +173,12 @@ class CustomerController extends Controller
    public function returnSalesDue(Request $request)
    {
       $request->validate([
-         'customer_id' => 'required',
+         'customer_id' => 'required|numeric',
          'current_due' => 'required|numeric',
          'amount' => 'required|numeric',
-         'customer_id' => 'required|numeric',
          'paid_date' => 'required',
       ]);
+
       $amount = $request->amount;
       $dues = DB::table('sales')->where('customer_id', $request->customer_id)->where('sales.due', '>', 'sales.due_return')->get();
       foreach ($dues as $due) {
