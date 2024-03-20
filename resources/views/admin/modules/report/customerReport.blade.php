@@ -1,7 +1,7 @@
 @extends('admin.layouts.adminmaster')
 @section('adminTitle')
 Customer report- Admin Dashboard
-@stop
+@endsection
 @section('adminContent')
 <style>
 	.search_link{
@@ -30,7 +30,7 @@ use App\Http\Controllers\report\CustomerReportController;
 ?>
 <div class="col-md-12 mt-5 pt-3 border-bottom">
 	<div class="text-dark px-0" >
-		<p class="mb-1"><a href="{{route('admin.dashboard')}}"><i class="fa fa-home"></i> Dashboard / </a><a href="" class="active-slink">Customer Report</a><span class="top-date">Total Customers : {{$customers->total()}}</span></p>
+		<p class="mb-1"><a href="{{ route('admin.dashboard') }}"><i class="fa fa-home"></i> Dashboard / </a><a href="" class="active-slink">Customer Report</a><span class="top-date">Total Customers : {{$customers->total()}}</span></p>
 
 	</div>
 </div>
@@ -39,20 +39,14 @@ use App\Http\Controllers\report\CustomerReportController;
 	<div class="box">
 		<div class="box-header">
 			<div class="box-icon-left border-right" style="height:100%">
-				
-
-
 				<p class="btn mt-0 task-icon"><i class="fa fa-users"></i></p>
-				
 			</div>
 			<h2 class="blue task-label">Customers Report</h2>
-
 			<div class="box-icon border-left" style="height:100%">
 				<div class="dropdown mt-0">
 					<p class="task-btn text_p_primary" title="Actions">
 						<i class="fa fa-th-list"></i>
 					</p>
-
 				</div>
 			</div>
 		</div>
@@ -78,7 +72,6 @@ use App\Http\Controllers\report\CustomerReportController;
 								<th class="font-weight-bold" scope="col">Image</th>
 								<th class="font-weight-bold" scope="col">Name</th>
 								<th class="font-weight-bold" scope="col">Company</th>
-								
 								<th class="font-weight-bold" scope="col">Phone</th>
 								<th class="font-weight-bold" scope="col">Total Sale</th>
 								<th class="font-weight-bold" scope="col">Total Amount</th>
@@ -86,7 +79,6 @@ use App\Http\Controllers\report\CustomerReportController;
 								<th class="font-weight-bold" scope="col">Start Balance</th>
 								<th class="font-weight-bold" scope="col">Balance</th>
 								<th class="font-weight-bold" scope="col">Actions</th>
-
 							</tr>
 						</thead>
 						<tbody id="table-data">
@@ -104,75 +96,67 @@ use App\Http\Controllers\report\CustomerReportController;
 								<td>{{$counter}}</td>
 								<td>
 									@if(!empty($customer->image))
-									<img src="{{ asset('/')}}{{$customer->image}}" alt="{{$customer->name}}" class="img-rounded" style="width:35px;height:35px;">
+									<img src="{{ asset($customer->image) }}" alt="{{ $customer->name }}" class="img-rounded" style="width:35px;height:35px;">
 									@else
-									
-									<img src="{{ asset('/')}}public/admin/defaultIcon/no_image.png" alt="No-image" class="img-rounded" style="width:35px;height:35px;">
-
+									<img src="{{ asset('admin/defaultIcon/no_image.png') }}" alt="No-image" class="img-rounded" style="width:35px;height:35px;">
 									@endif
 								</td>
 								<td>{{$customer->name}}</td>
 								<td>{{$customer->company}}</td>
-								
 								<td>{{$customer->mobile}}</td>
-							</td>
-							<td style="text-align:right;">{{$getTotalShopping}}</td>
-							<td style="text-align:right;">{{number_format($totalAmount,2)}}</td>
-							<td style="text-align:right;">{{number_format($getTotalPaid,2)}}</td>
-							<td style="text-align:right;">{{number_format($getStartBalance,2)}}</td>
-							<td style="text-align:right;">{{number_format($totalBalance,2)}}</td>
-							<td style="width:120px;">
-								<div class="dropdown" style="width:90px;float:right;">
-									<a href="{{route('admin.customer.customerDetails',$customer->id)}}" class="action-btn p-2" >
-										Details
-									</a>
-
-								</div>
-							</td>
-						</tr>
+								<td style="text-align:right;">{{$getTotalShopping}}</td>
+								<td style="text-align:right;">{{number_format($totalAmount,2)}}</td>
+								<td style="text-align:right;">{{number_format($getTotalPaid,2)}}</td>
+								<td style="text-align:right;">{{number_format($getStartBalance,2)}}</td>
+								<td style="text-align:right;">{{number_format($totalBalance,2)}}</td>
+								<td style="width:120px;">
+									<div class="dropdown" style="width:90px;float:right;">
+										<a href="{{route('admin.customer.customerDetails',$customer->id)}}" class="action-btn p-2" >
+											Details
+										</a>
+									</div>
+								</td>
+							</tr>
 						@endforeach
-					</tbody>
-				</table>
-				<br>
-				<div class="p-link">
-				{{$customers->links()}}
-			    </div>
+						</tbody>
+					</table>
+					<br>
+					<div class="p-link">
+						{{$customers->links()}}
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
-
 </div>
 
 <script>
 	$(document).ready(function(){
 		$("#customerSearchKey").on('keyup',function(){
 			var key=$(this).val();
-       //ajax
-       if(key==''){
-       	$("#customer_list").html('');
-       }else{
-       	$.ajax({
-       		headers: {
-       			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-       		},
-       		url:"{{route('admin.report.searchCustomer')}}",
-       		type:"POST",
-       		data:{'key':key},
-		        //dataType:'json',
-		        success:function(data){
-		        	$("#table-data").html(data);
-		        	$(".p-link").css('display','none');
-		        },
-		        error:function(){
-		         // toastr.error("Something went Wrong, Please Try again.");
-		     }
-		 });
-
-		  //end ajax
-		}
-	});
+       
+			if(key==''){
+				$("#customer_list").html('');
+			}else{
+				$.ajax({
+					headers: {
+						'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+					},
+					url:"{{route('admin.report.searchCustomer')}}",
+					type:"POST",
+					data:{'key':key},
+						//dataType:'json',
+						success:function(data){
+							$("#table-data").html(data);
+							$(".p-link").css('display','none');
+						},
+						error:function(){
+						// toastr.error("Something went Wrong, Please Try again.");
+					}
+				});
+			}
+		});
 	});
 </script>
-@stop
+@endsection
 

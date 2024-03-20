@@ -1,12 +1,13 @@
 @extends('admin.layouts.adminmaster')
+
 @section('adminTitle')
 Sub category -Admin Dashboard
-@stop
+@endsection
+
 @section('adminContent')
 <div class="col-md-12 mt-5 pt-3 border-bottom">
 	<div class="text-dark px-0" >
 		<p class="mb-1"><a href="{{route('admin.dashboard')}}"><i class="fa fa-home"></i> Dashboard / </a><a href="" class="active-slink">Sub Categories</a><span class="top-date">{{date('l, jS F Y')}}</span></p>
-
 	</div>
 </div>
 
@@ -14,36 +15,25 @@ Sub category -Admin Dashboard
 	<div class="box">
 		<div class="box-header">
 			<div class="box-icon-left border-right" style="height:100%">
-				
-					
-
-					<p class="btn mt-0 task-icon"><i class="fa fa-folder-open"></i></p>
-				
+				<p class="btn mt-0 task-icon"><i class="fa fa-folder-open"></i></p>
 			</div>
 			<h2 class="blue task-label">Sub-Categories</h2>
-
 			<div class="box-icon border-left" style="height:100%">
 				<div class="dropdown mt-0">
-					
-
-					
-						<p  class="task-btn text_p_primary" title="Actions">
-							<i class="fa fa-th-list"></i>
-						</p>
-						<div class="task-menu p-2">
-							<a class="dropdown-item pl-0" type="button" data-toggle="modal" data-target=".bd-example-modal-lg">
-							 <i class="fa-fw fa fa-plus-circle"></i> Add Sub Category
-							</a>
-							<a class="dropdown-item pl-0" type="button">
+					<p  class="task-btn text_p_primary" title="Actions">
+						<i class="fa fa-th-list"></i>
+					</p>
+					<div class="task-menu p-2">
+						<a class="dropdown-item pl-0" type="button" data-toggle="modal" data-target=".bd-example-modal-lg">
+							<i class="fa-fw fa fa-plus-circle"></i> Add Sub Category
+						</a>
+						<a class="dropdown-item pl-0" type="button">
 							<i class="fa fa-file"></i> Export To Excel File
 						</a>
-
 						<a class="dropdown-item pl-0" type="button">
 							<i class="fa fa-trash"></i> Delete Category
 						</a>
-							
-						</div>
-					
+					</div>
 				</div>
 			</div>
 		</div>
@@ -76,10 +66,10 @@ Sub category -Admin Dashboard
 								<td>{{$counter}}</td>
 								<td>
 									@if(!empty($categoty->image))
-									<img src="{{ asset('/')}}{{$categoty->image}}" alt="No-image" class="img-rounded" style="width:35px;height:35px;">
+									<img src="{{ asset($categoty->image) }}" alt="No-image" class="img-rounded" style="width:35px;height:35px;">
 									@else
 									
-									<img src="{{ asset('/')}}public/admin/defaultIcon/no_image.png" alt="No-image" class="img-rounded" style="width:35px;height:35px;">
+									<img src="{{ asset('admin/defaultIcon/no_image.png') }}" alt="No-image" class="img-rounded" style="width:35px;height:35px;">
 						
 									@endif
 								</td>
@@ -125,69 +115,61 @@ Sub category -Admin Dashboard
 								</td>
 							</tr>
 							@endforeach
-							
-							</tbody>
-						</table>
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</div>
 	</div>
-
 </div>
 <!-- Modal -->
 <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content p-3">
-    	<div class="modal-header">
-        <h2 class="modal-title" id="exampleModalLabel">Add New Sub-Category</h2>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-       <div class="modal-body">
-
-        <form method="POST" action="{{route('admin.subcategory.subcategorySave')}}" enctype="multipart/form-data">
-        	@csrf
-        	    <div class="form-group">
-				    <label>Parent Category</label>
-				    <select class="custom-select" name="parentId">
-					  <option selected value="NULL">Select Parent category</option>
-					  @foreach($categories as $category)
-					  <option value="{{$category->id}}">{{$category->name}}</option>
-					  @endforeach
+  	<div class="modal-dialog modal-lg">
+    	<div class="modal-content p-3">
+			<div class="modal-header">
+				<h2 class="modal-title" id="exampleModalLabel">Add New Sub-Category</h2>
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			</div>
+			<div class="modal-body">
+			<form method="POST" action="{{route('admin.subcategory.subcategorySave')}}" enctype="multipart/form-data">
+				@csrf
+				<div class="form-group">
+					<label>Parent Category</label>
+					<select class="custom-select" name="parentId">
+						<option selected value="NULL">Select Parent category</option>
+						@foreach($categories as $category)
+						<option value="{{$category->id}}">{{$category->name}}</option>
+						@endforeach
 					</select>
-				  </div>
-                <div class="form-group">
-				    <label>Category Name *</label>
-				    <input type="text" class="form-control" placeholder="Category Name" name="name">
-				  </div>
-				  <div class="form-group">
-				    <label>Category Code *</label>
-				    <?php
-                     $count=count($subcategories)+1;
-				    ?>
-				    <input type="text" class="form-control" name="code" value="{{$categoryCode}}-{{$count}}" readonly="">
-				  </div>
-				
-				 
-				    <div class="form-group">
-				    <label>Description</label>
-				    <textarea class="form-control" rows="3" name="description"></textarea>
-				  </div>
-				   <div class="form-group ">
-				      <label>Change Image</label>
-				       <input type="file" class="form-control-file" name="image">
-				    </div>
-       
-      </div>
-      <div class="modal-footer">
-        
-        <input type="submit" class="btn btn-primary" value="Submit">
-      </div>
-       </form>
+				</div>
+				<div class="form-group">
+					<label>Category Name *</label>
+					<input type="text" class="form-control" placeholder="Category Name" name="name">
+				</div>
+				<div class="form-group">
+					<label>Category Code *</label>
+					<?php
+					$count=count($subcategories)+1;
+					?>
+					<input type="text" class="form-control" name="code" value="{{$categoryCode}}-{{$count}}" readonly="">
+				</div>
+				<div class="form-group">
+					<label>Description</label>
+					<textarea class="form-control" rows="3" name="description"></textarea>
+				</div>
+				<div class="form-group">
+					<label>Change Image</label>
+					<input type="file" class="form-control-file" name="image">
+				</div>
+			</div>
+			<div class="modal-footer">
+				<input type="submit" class="btn btn-primary" value="Submit">
+			</div>
+			</form>
+    	</div>
     </div>
-    </div>
-  </div>
 </div>
-!--categoty modal-->
+{{-- category modal --}}
 <div class="modal fade category-modal" tabindex="-1" role="dialog" aria-hidden="true">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content p-3 modal-data">
@@ -195,57 +177,49 @@ Sub category -Admin Dashboard
 		</div>
 	</div>
 </div>
+
 <script>
 	$(document).ready(function(){
-    //edit product
-       $(".edit").click(function(){
-         var id=$(this).data('eid');
-        //ajax
-		 $.ajax({
-		   headers: {
-		    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-		  },
-		  url:"{{route('admin.setting.editsubCategory')}}",
-		  type:"POST",
-		  data:{'id':id},
-		        //dataType:'json',
+    	//edit product
+       	$(".edit").click(function(){
+         	var id=$(this).data('eid');
+			$.ajax({
+				headers: {
+					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+				},
+				url:"{{route('admin.setting.editsubCategory')}}",
+				type:"POST",
+				data:{'id':id},
 		        success:function(data){
 		        	$(".modal-data").html(data);
-		          $('.category-modal').modal('show'); 
+		          	$('.category-modal').modal('show'); 
 		        },
 		        error:function(){
-		          toastr.error("Something went Wrong, Please Try again.");
+		          	toastr.error("Something went Wrong, Please Try again.");
 		        }
-		      });
-
-		  //end ajax
-       }); 
+		    });
+       	}); 
 
        //product details
        $(".view").click(function(){
-        var id=$(this).data('vid');
-        //ajax
-		 $.ajax({
-		   headers: {
-		    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-		  },
-		  url:"{{route('admin.setting.subcategoryDetails')}}",
-		  type:"POST",
-		  data:{'id':id},
-		        //dataType:'json',
+        	var id=$(this).data('vid');
+			$.ajax({
+				headers: {
+					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+				},
+				url:"{{route('admin.setting.subcategoryDetails')}}",
+				type:"POST",
+				data:{'id':id},
 		        success:function(data){
 		        	$(".modal-data").html(data);
-		          $('.category-modal').modal('show'); 
+		          	$('.category-modal').modal('show'); 
 		        },
 		        error:function(){
-		          toastr.error("Something went Wrong, Please Try again.");
+		          	toastr.error("Something went Wrong, Please Try again.");
 		        }
-		      });
-
-		  //end ajax
-
+		    });
        });  
    });
 </script>
-@stop
+@endsection
 

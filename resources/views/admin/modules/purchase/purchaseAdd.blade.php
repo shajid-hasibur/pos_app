@@ -257,20 +257,20 @@ $(document).ready(function(){
 		}
 	});
 
-  //update product qty
+  	//update product qty
 	$(".pro_qty").on('change',function(){
 		var rowId=$(this).data('qty');
 		var qty=$(this).val();
+
 		if($.isNumeric(qty)){
 			if(qty!=0){
 				$.ajax({
 					headers: {
 						'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 					},
-					url:"{{route('admin.purchase.updateQty')}}",
+					url:"{{ route('admin.purchase.updateQty') }}",
 					type:"POST",
 					data:{'rowId':rowId,'qty':qty},
-					//dataType:'json',
 					success:function(data){
 						location.reload(true);
 					},
@@ -279,7 +279,6 @@ $(document).ready(function(){
 					}
 				});
 			}
-
 		}else{
 			alert('Please Enter Correct Number.');
 		}

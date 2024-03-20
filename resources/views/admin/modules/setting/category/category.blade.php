@@ -1,12 +1,13 @@
 @extends('admin.layouts.adminmaster')
+
 @section('adminTitle')
 Category -Admin Dashboard
-@stop
+@endsection
+
 @section('adminContent')
 <div class="col-md-12 mt-5 pt-3 border-bottom">
 	<div class="text-dark px-0" >
 		<p class="mb-1"><a href="{{route('admin.dashboard')}}"><i class="fa fa-home"></i> Dashboard / </a><a href="" class="active-slink">Categories</a><span class="top-date">{{date('l, jS F Y')}}</span></p>
-
 	</div>
 </div>
 
@@ -14,19 +15,11 @@ Category -Admin Dashboard
 	<div class="box">
 		<div class="box-header">
 			<div class="box-icon-left border-right" style="height:100%">
-				
-				
-
 				<p class="btn mt-0 task-icon"><i class="fa fa-folder-open"></i></p>
-				
 			</div>
 			<h2 class="blue task-label">Categories</h2>
-
 			<div class="box-icon border-left" style="height:100%">
 				<div class="dropdown mt-0">
-					
-
-					
 					<p  class="task-btn text_p_primary" title="Actions">
 						<i class="fa fa-th-list"></i>
 					</p>
@@ -37,13 +30,10 @@ Category -Admin Dashboard
 						<a class="dropdown-item pl-0" type="button">
 							<i class="fa fa-file"></i> Export To Excel File
 						</a>
-
 						<a class="dropdown-item pl-0" type="button">
 							<i class="fa fa-trash"></i> Delete Category
 						</a>
-						
 					</div>
-					
 				</div>
 			</div>
 		</div>
@@ -60,7 +50,6 @@ Category -Admin Dashboard
 								<th class="font-weight-bold" scope="col">Code</th>
 								<th class="font-weight-bold" scope="col">Status</th>
 								<th class="font-weight-bold" scope="col">Actions</th>
-
 							</tr>
 						</thead>
 						<tbody>
@@ -75,10 +64,10 @@ Category -Admin Dashboard
 								<td>{{$counter}}</td>
 								<td>
 									@if(!empty($categoty->image))
-									<img src="{{ asset('/')}}{{$categoty->image}}" alt="No-image" class="img-rounded" style="width:35px;height:35px;">
+									<img src="{{ asset($categoty->image) }}" alt="No-image" class="img-rounded" style="width:35px;height:35px;">
 									@else
 									
-									<img src="{{ asset('/')}}public/admin/defaultIcon/no_image.png" alt="No-image" class="img-rounded" style="width:35px;height:35px;">
+									<img src="{{ asset('admin/defaultIcon/no_image.png') }}" alt="No-image" class="img-rounded" style="width:35px;height:35px;">
 									
 									@endif
 								</td>
@@ -123,14 +112,12 @@ Category -Admin Dashboard
 								</td>
 							</tr>
 							@endforeach
-							
 						</tbody>
 					</table>
 				</div>
 			</div>
 		</div>
 	</div>
-
 </div>
 <!-- Modal -->
 <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -141,7 +128,6 @@ Category -Admin Dashboard
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 			</div>
 			<div class="modal-body">
-
 				<form method="POST" action="{{route('admin.category.categorySave')}}" enctype="multipart/form-data">
 					@csrf
 					<div class="form-group">
@@ -155,88 +141,73 @@ Category -Admin Dashboard
 						?>
 						<input type="text" class="form-control" name="code" value="{{$categoryCode}}-{{$count}}" readonly="">
 					</div>
-
 					<div class="form-group">
 						<label>Description</label>
 						<textarea class="form-control" rows="3" name="description"></textarea>
 					</div>
-					
-						<div class="form-group col-md-12">
-				      <label> Image</label>
-				       <input type="file" class="form-control-file" name="image">
+					<div class="form-group col-md-12">
+				       	<label> Image</label>
+				       	<input type="file" class="form-control-file" name="image">
 				    </div>
-					
-					
 				</div>
+
 				<div class="modal-footer">
-					
 					<input type="submit" class="btn btn-primary" value="Submit">
 				</div>
 			</form>
 		</div>
 	</div>
 </div>
-</div>
 
-</div>
 <!--categoty modal-->
 <div class="modal fade category-modal" tabindex="-1" role="dialog" aria-hidden="true">
 	<div class="modal-dialog modal-lg">
-		<div class="modal-content p-3 modal-data">
-			
-		</div>
+		<div class="modal-content p-3 modal-data"></div>
 	</div>
 </div>
+
 <script>
 	$(document).ready(function(){
-    //edit product
-       $(".edit").click(function(){
-         var id=$(this).data('eid');
 
-        //ajax
-		 $.ajax({
-		   headers: {
-		    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-		  },
-		  url:"{{route('admin.setting.editCategory')}}",
-		  type:"POST",
-		  data:{'id':id},
-		        //dataType:'json',
+    	//edit product
+       	$(".edit").click(function(){
+         	var id=$(this).data('eid');
+
+		 	$.ajax({
+				headers: {
+					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+				},
+				url:"{{route('admin.setting.editCategory')}}",
+				type:"POST",
+				data:{'id':id},
 		        success:function(data){
 		        	$(".modal-data").html(data);
-		          $('.category-modal').modal('show'); 
+		          	$('.category-modal').modal('show'); 
 		        },
 		        error:function(){
-		          toastr.error("Something went Wrong, Please Try again.");
+		          	toastr.error("Something went Wrong, Please Try again.");
 		        }
-		      });
-
-		  //end ajax
-       }); 
+		    });
+       	}); 
 
        //product details
-       $(".view").click(function(){
-        var id=$(this).data('vid');
-        //ajax
-		 $.ajax({
-		   headers: {
-		    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-		  },
-		  url:"{{route('admin.setting.categoryDetails')}}",
-		  type:"POST",
-		  data:{'id':id},
-		        //dataType:'json',
+       	$(".view").click(function(){
+        	var id=$(this).data('vid');
+		 	$.ajax({
+				headers: {
+					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+				},
+				url:"{{route('admin.setting.categoryDetails')}}",
+				type:"POST",
+				data:{'id':id},
 		        success:function(data){
 		        	$(".modal-data").html(data);
-		          $('.category-modal').modal('show'); 
-		        },
+					$('.category-modal').modal('show'); 
+				},
 		        error:function(){
-		          toastr.error("Something went Wrong, Please Try again.");
+		          	toastr.error("Something went Wrong, Please Try again.");
 		        }
-		      });
-
-		  //end ajax
-
+		    });
        });  
    });
 </script>

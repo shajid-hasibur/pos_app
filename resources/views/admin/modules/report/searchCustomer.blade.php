@@ -14,16 +14,13 @@ $totalBalance=$balance+$getStartBalance;
 	<td>{{$counter}}</td>
 	<td>
 		@if(!empty($customer->image))
-		<img src="{{ asset('/')}}{{$customer->image}}" alt="{{$customer->name}}" class="img-rounded" style="width:35px;height:35px;">
+		<img src="{{ asset($customer->image) }}" alt="{{ $customer->name }}" class="img-rounded" style="width:35px;height:35px;">
 		@else
-
-		<img src="{{ asset('/')}}public/admin/defaultIcon/no_image.png" alt="No-image" class="img-rounded" style="width:35px;height:35px;">
-
+		<img src="{{ asset('admin/defaultIcon/no_image.png') }}" alt="No-image" class="img-rounded" style="width:35px;height:35px;">
 		@endif
 	</td>
 	<td>{{$customer->name}}</td>
 	<td>{{$customer->company}}</td>
-
 	<td>{{$customer->mobile}}</td>
 </td>
 <td style="text-align:right;">{{$getTotalShopping}}</td>
@@ -36,7 +33,6 @@ $totalBalance=$balance+$getStartBalance;
 		<a href="{{route('admin.customer.customerDetails',$customer->id)}}" class="action-btn p-2" >
 			Details
 		</a>
-
 	</div>
 </td>
 </tr>
