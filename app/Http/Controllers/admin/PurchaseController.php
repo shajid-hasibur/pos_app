@@ -31,7 +31,7 @@ class PurchaseController extends Controller
   {
     $suppliers = Supplier::select('id', 'company', 'name')
       ->where('company', 'like', '%' . $request->term . '%')
-      ->limit(10)
+      ->limit(5)
       ->get();
 
     return response()->json($suppliers);
