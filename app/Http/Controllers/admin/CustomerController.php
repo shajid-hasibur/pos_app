@@ -103,6 +103,7 @@ class CustomerController extends Controller
          ->where('id', 'like', '%' . $request->key . '%')
          ->orWhere('name', 'like', '%' . $request->key . '%')
          ->orWhere('mobile', 'like', '%' . $request->key . '%')
+         ->limit(10)
          ->get();
       if (!$customers->isEmpty()) {
          foreach ($customers as $customer) {

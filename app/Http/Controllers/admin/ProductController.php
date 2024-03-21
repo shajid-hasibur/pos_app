@@ -13,14 +13,15 @@ use App\Products;
 use App\Stock;
 use Picqer;
 use Illuminate\Support\Facades\DB;
-use Image;
-use File;
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\File;
 use Cart;
 use App\Exports\ProductsExport;
 use App\promocode;
 use App\promotion;
 use App\SubCategory;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
@@ -75,6 +76,10 @@ class ProductController extends Controller
         $directory = 'uploads/product_image/';
         $imageUrl = $directory . $imageName;
 
+        if (!file_exists($directory)) {
+            mkdir($directory, 0755, true);
+        }
+
         Image::make($productImage)->resize(80, 80)->save($imageUrl);
 
         return $imageUrl;
@@ -98,7 +103,7 @@ class ProductController extends Controller
         $product = new Products;
         $product->name = $request->name;
         $product->code = $request->code;
-        $product->slug = str_slug($request->name);
+        $product->slug = str::slug($request->name);
         $product->supplier = $request->supplier;
         $product->unit = $request->unit;
         $product->brand = $request->brand;
@@ -266,15 +271,14 @@ class ProductController extends Controller
     //search product
     public function searchProduct(Request $request)
     {
-        $key = $request->key;
         $products = DB::table('products')
             ->where('id', 'like', '%' . $request->key . '%')
             ->orWhere('name', 'like', '%' . $request->key . '%')
             ->orWhere('code', 'like', '%' . $request->key . '%')
             ->orWhere('description', 'like', '%' . $request->key . '%')
+            ->limit(10)
             ->get();
 
-        //return view('admin.modules.product.searchProduct')->with(['products'=>$products]);
         if (!$products->isEmpty()) {
             foreach ($products as $product) {
                 echo "<a href='product-info/" . $product->id . "' class='list-group-item list-group-item-action mx-0 py-2 productDetails' data-pro_id='" . $product->id . "'>" . $product->name . "(" . $product->code . ")</a>";
