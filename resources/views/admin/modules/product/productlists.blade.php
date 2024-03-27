@@ -97,6 +97,15 @@
     </div>
 
     <!-- Modal -->
+    <div class="modal fade bd-example-modal-lg productModal" tabindex="-1" role="dialog"
+        aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content p-3 modal-data">
+
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
     <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content p-3">
@@ -204,8 +213,6 @@
             </div>
         </div>
     </div>
-    </div>
-
 
     <script>
         $(document).ready(function() {
@@ -256,7 +263,7 @@
                     targets: '_all',
                     className: 'dataTable-text-center',
                     "orderable": false
-                }, ]
+                }]
             });
             $("#category").on('change', function() {
                 var catId = $(this).val();
@@ -290,6 +297,7 @@
             //edit product
             $(".edit-product").click(function() {
                 var productid = $(this).data('productid');
+
                 $.ajax({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

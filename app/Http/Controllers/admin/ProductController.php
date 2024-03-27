@@ -47,7 +47,7 @@ class ProductController extends Controller
                 }
 
                 $deleteModalHtml = '
-                    <div class="del-modal modal-' . $product->id . ' text-left" style="display: none;">
+                    <div class="del-modal modal-' . $product->id . ' text-left">
                         <p><b>Record delete confirmation.</b></p>
                         <p>Are you sure you want to delete this record?</p>
                         <button class="btn bg_p_primary py-1 del-close" style="background-color: #808080a6;border-color: #808080a6;">Cancel</button>
