@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 23, 2023 at 09:48 AM
--- Server version: 10.4.27-MariaDB
--- PHP Version: 7.4.33
+-- Generation Time: Mar 24, 2024 at 06:52 AM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `brac`
+-- Database: `laravel_brac_pos`
 --
 
 -- --------------------------------------------------------
@@ -58,7 +58,9 @@ INSERT INTO `admins` (`id`, `first_name`, `last_name`, `email`, `mobile`, `usern
 (15, 'Brac SDP', 'Khulna', 'khulna.bracsdp@gmail.com', NULL, 'Brac SDP (Khulna)', '$2y$10$UpHpqJZ0CTuxfzYq9l/uuueQPzQ.CFKgVqRyChEHd.VqNbna.WyJe', NULL, 2, 1, '2022-12-13 11:21:19', '2022-12-13 11:21:53'),
 (16, 'Brac SDP', 'Chattogram', 'chattogram.bracsdp@gmail.com', NULL, 'Brac SDP (Chattogram)', '$2y$10$M0jFbLWmfWJK4zJxYQ.FaeVPME3vzpWKtfRuFBr8jiUADh7UBXKuy', NULL, 2, 1, '2022-12-13 11:22:54', '2022-12-13 11:22:54'),
 (17, 'BRAC SDP', '(M)', 'brac_sdp_m@gmail.com', NULL, 'BRAC SDP(M)', '$2y$10$CE0.KIeBLJ3yIDN8YLzx5ecu5tS2c2G698oSmXh6JAYCk9xZIbesW', NULL, 1, 1, '2022-12-13 11:24:33', '2022-12-13 11:24:33'),
-(18, 'Shakil', 'Ahmed', 'shakil@gmail.com', '01680419920', 'shakil001', '$2y$10$l.SiyIYQ/uVttnRkF2OzyOCoB4aMEoc7k5m43iXfzeYBk6yfs3X1K', NULL, 1, 1, '2023-08-15 15:28:32', '2023-08-15 15:28:32');
+(18, 'Shakil', 'Ahmed', 'shakil@gmail.com', '01680419920', 'shakil001', '$2y$10$l.SiyIYQ/uVttnRkF2OzyOCoB4aMEoc7k5m43iXfzeYBk6yfs3X1K', NULL, 1, 1, '2023-08-15 15:28:32', '2023-08-15 15:28:32'),
+(19, 'Md.Hasibur Rahman', NULL, 'admin123@gmail.com', NULL, 'admin123@gmail.com', '$2y$10$ngjetEIi/rMzae6pAWMEFu4bNQf7C.aLTxZDiyeq/YQhfiMPIRLM6', NULL, 1, 1, '2024-03-13 10:04:03', '2024-03-13 10:04:03'),
+(20, 'Md. Hasibur', 'Rahman', 'shajid.hasibur1996@gmail.com', NULL, 'shajid@super.com', '$2y$10$9tTrwh6/5fCgxtS6E3YH9ew0Ijuy0S5sEOVRDWOG7exEwk4BhLDay', NULL, 1, 1, '2024-03-18 08:50:53', '2024-03-18 08:50:53');
 
 -- --------------------------------------------------------
 
@@ -136,21 +138,22 @@ CREATE TABLE `brands` (
 --
 
 INSERT INTO `brands` (`id`, `name`, `code`, `slug`, `description`, `image`, `company`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'Lifebuoy', 'BC-1', 'formula1', NULL, 'public/uploads/brand_image/lifeboy.jpg', 'Unilever', 1, '2020-02-25 13:05:26', '2020-02-25 13:05:26'),
-(2, 'Clear', 'BC-2', 'toyota', NULL, 'public/uploads/brand_image/clear.png', 'Unilever', 1, '2020-03-05 15:22:37', '2020-03-05 15:22:37'),
-(3, 'MUM', 'BC-3', 'rbi', NULL, 'public/uploads/brand_image/mum.jpg', 'Partex', 1, '2020-03-05 15:22:52', '2020-03-05 15:22:52'),
-(4, 'Frutika', 'BC-4', 'stop', NULL, 'public/uploads/brand_image/frutika.jpg', 'Akij Food & Bevarage', 1, '2020-03-05 15:23:03', '2020-03-05 15:23:03'),
-(5, 'LUX', 'BC-5', 'denso', NULL, 'public/uploads/brand_image/LUX_(soap)_logo.png', 'Unilever', 1, '2020-03-05 15:23:15', '2020-03-05 15:23:15'),
-(6, 'Alltime', 'BC-6', 'osk', NULL, 'public/uploads/brand_image/alltime.png', 'Pran-RFL', 1, '2020-03-05 15:23:24', '2020-03-05 15:23:24'),
-(7, 'Ruchi', 'BC-7', 'advios', NULL, 'public/uploads/brand_image/Ruchi-Logo.webp', 'Partex', 1, '2020-03-05 15:23:38', '2020-03-05 15:23:38'),
-(8, 'pepsodent', 'BC-8', 'gunk', NULL, 'public/uploads/brand_image/pepsodent.png', 'Unilever', 1, '2020-03-05 15:23:47', '2020-03-05 15:23:47'),
-(9, 'Ponds', 'BC-9', 'seger', NULL, 'public/uploads/brand_image/ponds.jpg', 'Unilever', 1, '2020-03-05 15:23:58', '2020-03-05 15:23:58'),
+(1, 'Lifebuoy', 'BC-1', 'formula1', NULL, 'uploads/brand_image/lifeboy.jpg', 'Unilever', 1, '2020-02-25 13:05:26', '2020-02-25 13:05:26'),
+(2, 'Clear', 'BC-2', 'toyota', NULL, 'uploads/brand_image/clear.png', 'Unilever', 1, '2020-03-05 15:22:37', '2020-03-05 15:22:37'),
+(3, 'MUM', 'BC-3', 'rbi', NULL, 'uploads/brand_image/mum.jpg', 'Partex', 1, '2020-03-05 15:22:52', '2020-03-05 15:22:52'),
+(4, 'Frutika', 'BC-4', 'stop', NULL, 'uploads/brand_image/frutika.jpg', 'Akij Food & Bevarage', 1, '2020-03-05 15:23:03', '2020-03-05 15:23:03'),
+(5, 'LUX', 'BC-5', 'denso', NULL, 'uploads/brand_image/LUX_(soap)_logo.png', 'Unilever', 1, '2020-03-05 15:23:15', '2020-03-05 15:23:15'),
+(6, 'Alltime', 'BC-6', 'osk', NULL, 'uploads/brand_image/alltime.png', 'Pran-RFL', 1, '2020-03-05 15:23:24', '2020-03-05 15:23:24'),
+(7, 'Ruchi', 'BC-7', 'advios', NULL, 'uploads/brand_image/Ruchi-Logo.webp', 'Partex', 1, '2020-03-05 15:23:38', '2020-03-05 15:23:38'),
+(8, 'pepsodent', 'BC-8', 'gunk', NULL, 'uploads/brand_image/pepsodent.png', 'Unilever', 1, '2020-03-05 15:23:47', '2020-03-05 15:23:47'),
+(9, 'Ponds', 'BC-9', 'seger', NULL, 'uploads/brand_image/ponds.jpg', 'Unilever', 1, '2020-03-05 15:23:58', '2020-03-05 15:23:58'),
 (23, 'ACI', 'BC-10', 'aci', 'ddd', NULL, 'Martina', 1, '2022-09-19 10:38:19', '2022-09-19 10:38:19'),
 (24, 'Mahmud and Co.', 'BC-11', 'mahmud-and-co', 'fgfghg', NULL, 'Square', 1, '2022-09-20 10:35:57', '2022-09-20 10:35:57'),
 (25, 'Yollo', 'BC-12', 'yollo', 'Hello', NULL, 'Yollo', 1, '2022-12-05 04:20:51', '2022-12-05 04:20:51'),
 (26, 'azad', 'BC-13', 'azad', 'hi', NULL, 'azad2', 1, '2022-12-05 04:47:21', '2022-12-05 04:47:21'),
 (27, 'Coke', 'BC-14', 'coke', NULL, NULL, NULL, 1, '2022-12-19 04:34:03', '2022-12-19 04:34:03'),
-(28, 'Close up', 'BC-15', 'close-up', '250gm', 'public/uploads/brand_image/jakarta-indonesia-august-2021-brand-260nw-2030043356.webp', 'Unilever', 1, '2023-01-03 04:51:45', '2023-01-03 04:51:45');
+(28, 'Close up', 'BC-15', 'close-up', '250gm', NULL, 'Unilever', 1, '2023-01-03 04:51:45', '2023-01-03 04:51:45'),
+(29, 'Samsung', 'BC-16', 'samsung', 'sfdgfdgfdg', 'uploads/brand_image/c2.png', 'Samsung', 1, '2024-03-20 09:51:57', '2024-03-20 09:51:57');
 
 -- --------------------------------------------------------
 
@@ -176,15 +179,16 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`id`, `name`, `image`, `code`, `description`, `slug`, `status`, `parentId`, `created_at`, `updated_at`) VALUES
-(1, 'Chal', 'public/uploads/category_image/chal.jpg', 'CC-1', NULL, 'car-wax', 1, NULL, '2020-02-25 13:00:43', '2020-02-25 13:00:43'),
-(2, 'Daal', 'public/uploads/category_image/daal.jpeg', 'CC-2', NULL, 'auto-parts', 1, NULL, '2020-03-08 13:04:17', '2020-03-08 13:04:17'),
-(4, 'Soyabin Oil', 'public/uploads/category_image/soyabin_oil.png', 'CC-3', NULL, 'lube', 1, NULL, '2022-05-12 09:09:21', '2022-05-12 09:09:21'),
+(1, 'Chal', 'uploads/category_image/chal.jpg', 'CC-1', NULL, 'car-wax', 1, NULL, '2020-02-25 13:00:43', '2020-02-25 13:00:43'),
+(2, 'Daal', 'uploads/category_image/daal.jpeg', 'CC-2', NULL, 'auto-parts', 1, NULL, '2020-03-08 13:04:17', '2020-03-08 13:04:17'),
+(4, 'Soyabin Oil', 'uploads/category_image/soyabin_oil.png', 'CC-3', NULL, 'lube', 1, NULL, '2022-05-12 09:09:21', '2022-05-12 09:09:21'),
 (5, 'shoe', NULL, 'CC-4', 'fddjygh', 'shoe', 1, NULL, '2022-09-11 11:11:38', '2022-09-11 11:11:38'),
 (6, 'Hand Rub', NULL, 'CC-5', 'Its better than anything', 'hand-rub', 1, NULL, '2022-09-19 10:36:46', '2022-09-19 10:36:46'),
 (7, 'Air Freshner', NULL, 'CC-6', 'chhjhjk', 'air-freshner', 1, NULL, '2022-09-20 10:34:06', '2022-09-20 10:34:06'),
 (8, 'Men', NULL, 'CC-7', 'Hello', 'men', 1, NULL, '2022-12-05 04:19:25', '2022-12-05 04:19:25'),
 (9, 'Soft Drinks', NULL, 'CC-8', NULL, 'soft-drinks', 1, NULL, '2022-12-19 04:31:24', '2022-12-19 04:31:24'),
-(10, 'Toothpaste', 'public/uploads/category_image/jakarta-indonesia-august-2021-brand-260nw-2030043356.webp', 'CC-9', 'unilever', 'toothpaste', 1, NULL, '2023-01-03 04:49:53', '2023-01-03 04:49:53');
+(10, 'Toothpaste', NULL, 'CC-9', 'unilever', 'toothpaste', 1, NULL, '2023-01-03 04:49:53', '2023-01-03 04:49:53'),
+(11, 'Shampoo', 'uploads/category_image/c4.png', 'CC-10', 'Shampoo', 'shampoo', 1, NULL, '2024-03-20 09:24:23', '2024-03-20 09:24:23');
 
 -- --------------------------------------------------------
 
@@ -334,7 +338,8 @@ INSERT INTO `customers` (`id`, `group`, `name`, `mobile`, `mobile2`, `email`, `c
 (230, 1, 'Monojit Roy', '01826064161', NULL, 'monojits62@gmail.com', 'Ashit Baran Roy', 'House#11/2, Road#12', NULL, 1, NULL, '2023-07-17 07:48:11', '2023-07-17 07:48:11'),
 (231, 1, 'raju', '0162711225', NULL, NULL, NULL, NULL, NULL, 1, NULL, '2023-07-17 07:52:31', '2023-07-17 07:52:31'),
 (232, 1, 'co shakib', '112459876', NULL, NULL, NULL, NULL, NULL, 1, NULL, '2023-07-17 08:03:16', '2023-07-17 08:03:16'),
-(233, 1, 'shakil', '01680419920', NULL, NULL, 'null', NULL, NULL, 1, NULL, '2023-08-22 06:16:11', '2023-08-22 06:16:11');
+(233, 1, 'Md.Hasibur Rahman', '01680419920', NULL, 'demo@demo.com', 'Codetree', 'Uttara, Dhaka, Bangladesh', NULL, 1, 'uploads/customer_image/p-10.png', '2023-08-22 06:16:11', '2023-08-22 06:16:11'),
+(234, 2, 'Asif Mia', '01254578696', NULL, 'asif@gmail.com', 'Gonzalez and Price Traders', 'Uttara, Dhaka, Bangladesh', 10000, 1, NULL, '2024-03-21 09:17:25', '2024-03-21 09:17:25');
 
 -- --------------------------------------------------------
 
@@ -358,7 +363,8 @@ CREATE TABLE `customer_groups` (
 INSERT INTO `customer_groups` (`id`, `name`, `percentage`, `status`, `created_at`, `updated_at`) VALUES
 (1, 'General', 0, 1, '2020-01-18 03:08:02', '2020-01-18 03:08:02'),
 (2, 'Reseller', 5, 1, '2020-01-18 03:09:14', '2020-01-18 03:09:14'),
-(3, 'Nahin Khan', 10, 1, '2022-05-12 09:01:12', '2022-05-12 09:01:12');
+(3, 'Nahin Khan', 10, 1, '2022-05-12 09:01:12', '2022-05-12 09:01:12'),
+(4, 'Shopno', 5, 1, '2024-03-20 08:29:45', '2024-03-20 08:29:45');
 
 -- --------------------------------------------------------
 
@@ -496,6 +502,7 @@ INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
 (1, 'App\\Admin', 6),
 (1, 'App\\Admin', 17),
 (1, 'App\\Admin', 18),
+(1, 'App\\Admin', 20),
 (2, 'App\\Admin', 3),
 (2, 'App\\Admin', 7),
 (2, 'App\\Admin', 8),
@@ -863,7 +870,12 @@ INSERT INTO `payments` (`id`, `reference`, `salereference`, `purchasereference`,
 (319, 'PAY-2023-07-17/316', 'IC-00000302', NULL, 'cash', 4000, 'Received', '2023-07-17', '14', '2023-07-17 07:31:50', '2023-07-17 07:31:50'),
 (320, 'PAY-2023-07-17/317', 'IC-00000303', NULL, 'cash', 1500, 'Received', '2023-07-17', '14', '2023-07-17 07:53:06', '2023-07-17 07:53:06'),
 (321, 'PAY-2023-07-17/318', 'IC-00000304', NULL, 'cash', 500, 'Received', '2023-07-17', '14', '2023-07-17 08:06:19', '2023-07-17 08:06:19'),
-(322, 'PAY-2023-08-22/319', 'IC-00000305', NULL, 'cash', 1000, 'Received', '2023-08-22', '18', '2023-08-22 06:17:31', '2023-08-22 06:17:31');
+(322, 'PAY-2023-08-22/319', 'IC-00000305', NULL, 'cash', 1000, 'Received', '2023-08-22', '18', '2023-08-22 06:17:31', '2023-08-22 06:17:31'),
+(323, 'PAY-2024-03-17/320', 'IC-00000305', NULL, 'cash', 1450, 'Received', '2024-03-17', '18', '2024-03-17 06:52:53', '2024-03-17 06:52:53'),
+(324, 'PAY-2024-03-19/321', 'IC-00000306', NULL, 'card', 5000, 'Received', '2024-03-19', '20', '2024-03-19 05:12:20', '2024-03-19 05:12:20'),
+(325, 'PAY-2024-03-19/322', 'IC-00000307', NULL, 'cash', 5000, 'Received', '2024-03-19', '20', '2024-03-19 05:17:09', '2024-03-19 05:17:09'),
+(327, 'PAY-2024-03-19/323', NULL, 'PUC-5', 'cash', 500, 'paid', '2024-03-19', '20', '2024-03-19 08:08:15', '2024-03-19 08:08:15'),
+(328, 'PAY-2024-03-21/324', 'IC-00000308', NULL, 'cash', 0, 'Received', '2024-03-21', '20', '2024-03-21 08:16:58', '2024-03-21 08:16:58');
 
 -- --------------------------------------------------------
 
@@ -958,42 +970,42 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `name`, `code`, `slug`, `supplier`, `codeSymbology`, `category`, `subcategory`, `unit`, `brand`, `purchase_price`, `sell_price`, `whole_sell`, `start_inventory`, `start_cost`, `alert_qty`, `image`, `description`, `status`, `created_at`, `updated_at`) VALUES
-(221, 'Pran Chinigura', 'PC-221', 'pran-chinigura', 1, NULL, 1, NULL, 4, NULL, 500, 520, 500, 20, 0, NULL, 'public/uploads/product_image/pran rice50kg.png', NULL, 1, '2022-07-14 05:28:34', '2022-07-14 05:28:34'),
-(222, 'Teer Soyabin Oil 5L', 'PC-222', 'teer-soyabin-oil-5l', 1, NULL, 4, 1, 4, 6, 800, 850, 800, NULL, 0, NULL, 'public/uploads/product_image/teer.jpg', NULL, 1, '2022-07-14 05:43:08', '2022-07-14 05:43:08'),
-(223, 'MUM 330 ML', 'PC-223', 'mum-330-ml', 1, NULL, 4, 1, 12, 3, 15, 12, 15, NULL, 0, NULL, 'public/uploads/product_image/mum_330ml.jpg', NULL, 1, '2022-07-14 05:47:04', '2022-07-14 05:47:04'),
-(224, 'Alltime Fruit Cake', 'PC-224', 'alltime-fruid-cake', 1, NULL, 1, NULL, 8, 6, 26, 30, 30, NULL, 0, NULL, 'public/uploads/product_image/alltime_cake.jpg', NULL, 1, '2022-07-14 05:49:05', '2022-07-14 05:49:05'),
-(225, 'Clear MEN 270ml', 'PC-225', 'clear-men-270ml', 1, NULL, 4, 1, 12, 2, 270, 280, 270, NULL, 0, NULL, 'public/uploads/product_image/clear_men.jpg', NULL, 1, '2022-07-14 05:50:32', '2022-07-14 05:50:32'),
-(226, 'LUX 150gm', 'PC-226', 'lux-150gm', 1, NULL, 4, 1, 4, 5, 70, 80, 70, NULL, 0, NULL, 'public/uploads/product_image/lux 150g.jpg', NULL, 1, '2022-07-14 05:51:52', '2022-07-14 05:51:52'),
-(227, 'Pepsodent 70gm', 'PC-227', 'pepsodent-70gm', 1, NULL, 4, 1, 4, 8, 80, 90, 80, NULL, 0, NULL, 'public/uploads/product_image/pepsodent.jpg', NULL, 1, '2022-07-14 05:52:55', '2022-07-14 05:52:55'),
-(228, 'RUCHI JHAL Chanachur 300gm', 'PC-228', 'ruchi-jhal-chanachur-300gm', 1, NULL, 2, NULL, 4, 7, 50, 60, 50, NULL, 0, NULL, 'public/uploads/product_image/ruchi_chanachur_hot_front_ad52c7fe-b026-4fe5-a439-8d9129f3cfd5_1400x.webp', NULL, 1, '2022-07-14 05:54:09', '2022-07-14 05:54:09'),
-(229, 'PONDS Cream 35gm', 'PC-229', 'ponds-cream-35gm', 1, NULL, 4, 1, 4, 9, 110, 120, 110, NULL, 0, NULL, 'public/uploads/product_image/ponds.jpeg', NULL, 1, '2022-07-14 05:55:19', '2022-07-14 05:55:19'),
-(230, 'Alltime Roma 60gm', 'PC-230', 'alltime-roma-60gm', 1, NULL, 2, NULL, 4, 6, 70, 80, 70, NULL, 0, NULL, 'public/uploads/product_image/7-roma-product-image-750x750px-min.png', NULL, 1, '2022-07-14 05:56:11', '2022-07-14 05:56:11'),
-(231, 'Lifebuoy 100gm', 'PC-231', 'lifebuoy-100gm', 1, NULL, 4, 1, 4, NULL, 70, 80, 70, NULL, 0, NULL, 'public/uploads/product_image/lifebuoy_soap_bar_total_100g.png', NULL, 1, '2022-07-14 05:59:53', '2022-07-14 05:59:53'),
-(232, 'Lifebuoy Handwash 500gm', 'PC-232', 'lifebuoy-handwash-500gm', 1, NULL, 4, 1, 4, 1, 85, 90, 85, NULL, 0, NULL, 'public/uploads/product_image/lifeboy_handwash.jpg', NULL, 1, '2022-07-14 06:00:42', '2022-07-14 06:00:42'),
-(233, 'Frutika Mango Juice 1L', 'PC-233', 'frutika-mango-juice-1l', 1, NULL, 4, 1, 12, 4, 60, 70, 60, NULL, 0, NULL, 'public/uploads/product_image/frutika-mango-juice-1-ltr.jpg', NULL, 1, '2022-07-14 06:02:30', '2022-07-14 06:02:30'),
-(234, 'Frutika Grape Juice 250ml', 'PC-234', 'frutika-grape-juice-250ml', 1, NULL, 4, 1, 12, 4, 25, 30, 25, 10, 250, NULL, 'public/uploads/product_image/frutika-grape-juice-250ml.jpg', NULL, 1, '2022-07-14 06:07:41', '2022-07-14 06:07:41'),
-(235, 'Alltime Sweet Toast', 'PC-235', 'alltime-sweet-toast', 1, NULL, 4, 1, 4, 6, 55, 60, 60, 10, 550, NULL, 'public/uploads/product_image/0279404_all-time-sweet-toast-350gm.webp', NULL, 1, '2022-07-14 06:11:01', '2022-07-14 06:11:01'),
-(236, 'Alltime Chocolate Cake 60gm', 'PC-236', 'alltime-chocolate-cake-60gm', 1, NULL, 4, 1, 4, 6, 55, 65, 55, NULL, 0, NULL, 'public/uploads/product_image/alltime_chocolate_cake.png', NULL, 1, '2022-07-14 06:11:42', '2022-07-14 06:11:42'),
-(237, 'Alltime Honeycomb 20gm', 'PC-237', 'alltime-honeycomb-20gm', 1, NULL, 4, 1, 4, 6, 12, 15, 12, 20, 240, NULL, 'public/uploads/product_image/alltime_honeycomb.png', NULL, 1, '2022-07-14 06:13:34', '2022-07-14 06:13:34'),
-(238, 'Pran Drinko Mango 250ml', 'PC-238', 'pran-drinko-mango-250ml', 1, NULL, 4, NULL, 4, 6, 20, 30, 20, 20, 400, NULL, 'public/uploads/product_image/drinko mango.jpg', NULL, 1, '2022-07-14 06:17:23', '2022-07-14 06:17:23'),
-(239, 'Pran Drinko Litchi 250ml', 'PC-239', 'pran-drinko-litchi-250ml', 1, NULL, 4, 1, 4, 6, 20, 30, 20, NULL, 0, NULL, 'public/uploads/product_image/drinko_litchi.jpg', NULL, 1, '2022-07-14 06:17:50', '2022-07-14 06:17:50'),
-(240, 'Pran Drinko Strawberry 250ml', 'PC-240', 'pran-drinko-strawberry-250ml', 1, NULL, 4, 1, 4, 6, 20, 30, 20, NULL, 0, NULL, 'public/uploads/product_image/drinko strawberry.jpg', NULL, 1, '2022-07-14 06:18:43', '2022-07-14 06:18:43'),
-(241, 'Pran Drinko Pineapple 250ml', 'PC-241', 'pran-drinko-pineapple-250ml', 1, NULL, 4, 1, 4, 6, 20, 30, 20, NULL, 0, NULL, 'public/uploads/product_image/Pran-Drinko-Pineapple-Juice-250-ml-510x510.jpg', NULL, 1, '2022-07-14 06:19:29', '2022-07-14 06:19:29'),
-(242, 'Pran Potata 250gm', 'PC-242', 'pran-potata-250gm', 1, NULL, 2, NULL, 4, 6, 12, 20, 12, 200, 2400, NULL, 'public/uploads/product_image/pran potata.jpg', NULL, 1, '2022-07-14 06:20:26', '2022-07-14 06:20:26'),
-(243, 'Pran Milk 1L', 'PC-243', 'pran-milk-1l', 1, NULL, 2, NULL, 12, 6, 80, 90, 80, 50, 4000, NULL, 'public/uploads/product_image/pran milk.png', NULL, 1, '2022-07-14 06:21:11', '2022-07-14 06:21:11'),
-(244, 'Teer ATA 2kg', 'PC-244', 'teer-ata-2kg', 1, NULL, 1, NULL, 4, 7, 180, 200, 180, 50, 9000, NULL, 'public/uploads/product_image/teer-flour-atta-2-kg.jpg', NULL, 1, '2022-07-14 06:41:50', '2022-07-14 06:41:50'),
-(245, 'Teer Moida 2kg', 'PC-245', 'teer-moida-2kg', 1, NULL, 1, NULL, 4, 7, 190, 200, 190, 50, 9500, NULL, 'public/uploads/product_image/teer-white-flour-maida-2-kg.jpg', NULL, 1, '2022-07-14 06:42:31', '2022-07-14 06:42:31'),
-(246, 'Teer Sugar 1kg', 'PC-246', 'teer-sugar-1kg', 1, NULL, 1, NULL, 4, 7, 90, 100, 90, 50, 4500, NULL, 'public/uploads/product_image/Teer-sugar-refined.webp', NULL, 1, '2022-07-14 06:43:15', '2022-07-14 06:43:15'),
-(247, 'Teer Salt 1kg', 'PC-247', 'teer-salt-1kg', 1, NULL, 1, NULL, 4, 7, 60, 70, 60, 50, 3000, NULL, 'public/uploads/product_image/teer salt.jpg', NULL, 1, '2022-07-14 06:43:59', '2022-07-14 06:43:59'),
-(248, 'Ruchi Mixed Pickle 400gm', 'PC-248', 'ruchi-mixed-pickle-400gm', 1, NULL, 4, 1, 4, 7, 75, 80, 75, 50, 3750, NULL, 'public/uploads/product_image/43.-Ruchi-Mixed-Pickle-400gm-130tk.webp', NULL, 1, '2022-07-14 06:44:48', '2022-07-14 06:44:48'),
-(249, 'fff', 'PC-249', 'fff', 1, NULL, 1, NULL, 10, 2, 2344, 3455, 1456, 55, 128920, 10, 'public/uploads/product_image/teer salt.jpg', 'wryjukl', 1, '2022-07-18 12:24:56', '2022-07-18 12:24:56'),
-(250, 'test', 'PC-250', 'test', 2, NULL, 2, NULL, 7, 4, 123, 250, 200, 2131, 262113, 11, 'public/uploads/product_image/$$ (2).png', 'dfdffggg', 1, '2022-08-25 08:27:01', '2022-08-25 08:27:01'),
+(221, 'Pran Chinigura', 'PC-221', 'pran-chinigura', 1, NULL, 1, NULL, 4, NULL, 500, 520, 500, 20, 0, NULL, 'uploads/product_image/pran rice50kg.png', NULL, 1, '2022-07-14 05:28:34', '2022-07-14 05:28:34'),
+(222, 'Teer Soyabin Oil 5L', 'PC-222', 'teer-soyabin-oil-5l', 1, NULL, 4, 1, 4, 6, 800, 850, 800, NULL, 0, NULL, 'uploads/product_image/teer.jpg', NULL, 1, '2022-07-14 05:43:08', '2022-07-14 05:43:08'),
+(223, 'MUM 330 ML', 'PC-223', 'mum-330-ml', 1, NULL, 4, 1, 12, 3, 15, 12, 15, NULL, 0, NULL, 'uploads/product_image/mum_330ml.jpg', NULL, 1, '2022-07-14 05:47:04', '2022-07-14 05:47:04'),
+(224, 'Alltime Fruit Cake', 'PC-224', 'alltime-fruid-cake', 1, NULL, 1, NULL, 8, 6, 26, 30, 30, NULL, 0, NULL, 'uploads/product_image/alltime_cake.jpg', NULL, 1, '2022-07-14 05:49:05', '2022-07-14 05:49:05'),
+(225, 'Clear MEN 270ml', 'PC-225', 'clear-men-270ml', 1, NULL, 4, 1, 12, 2, 270, 280, 270, NULL, 0, NULL, 'uploads/product_image/clear_men.jpg', NULL, 1, '2022-07-14 05:50:32', '2022-07-14 05:50:32'),
+(226, 'LUX 150gm', 'PC-226', 'lux-150gm', 1, NULL, 4, 1, 4, 5, 70, 80, 70, NULL, 0, NULL, 'uploads/product_image/lux 150g.jpg', NULL, 1, '2022-07-14 05:51:52', '2022-07-14 05:51:52'),
+(227, 'Pepsodent 70gm', 'PC-227', 'pepsodent-70gm', 1, NULL, 4, 1, 4, 8, 80, 90, 80, NULL, 0, NULL, 'uploads/product_image/pepsodent.jpg', NULL, 1, '2022-07-14 05:52:55', '2022-07-14 05:52:55'),
+(228, 'RUCHI JHAL Chanachur 300gm', 'PC-228', 'ruchi-jhal-chanachur-300gm', 1, NULL, 2, NULL, 4, 7, 50, 60, 50, NULL, 0, NULL, 'uploads/product_image/ruchi_chanachur_hot_front_ad52c7fe-b026-4fe5-a439-8d9129f3cfd5_1400x.webp', NULL, 1, '2022-07-14 05:54:09', '2022-07-14 05:54:09'),
+(229, 'PONDS Cream 35gm', 'PC-229', 'ponds-cream-35gm', 1, NULL, 4, 1, 4, 9, 110, 120, 110, NULL, 0, NULL, 'uploads/product_image/ponds.jpeg', NULL, 1, '2022-07-14 05:55:19', '2022-07-14 05:55:19'),
+(230, 'Alltime Roma 60gm', 'PC-230', 'alltime-roma-60gm', 1, NULL, 2, NULL, 4, 6, 70, 80, 70, NULL, 0, NULL, 'uploads/product_image/7-roma-product-image-750x750px-min.png', NULL, 1, '2022-07-14 05:56:11', '2022-07-14 05:56:11'),
+(231, 'Lifebuoy 100gm', 'PC-231', 'lifebuoy-100gm', 1, NULL, 4, 1, 4, NULL, 70, 80, 70, NULL, 0, NULL, 'uploads/product_image/lifebuoy_soap_bar_total_100g.png', NULL, 1, '2022-07-14 05:59:53', '2022-07-14 05:59:53'),
+(232, 'Lifebuoy Handwash 500gm', 'PC-232', 'lifebuoy-handwash-500gm', 1, NULL, 4, 1, 4, 1, 85, 90, 85, NULL, 0, NULL, 'uploads/product_image/lifeboy_handwash.jpg', NULL, 1, '2022-07-14 06:00:42', '2022-07-14 06:00:42'),
+(233, 'Frutika Mango Juice 1L', 'PC-233', 'frutika-mango-juice-1l', 1, NULL, 4, 1, 12, 4, 60, 70, 60, NULL, 0, NULL, 'uploads/product_image/frutika-mango-juice-1-ltr.jpg', NULL, 1, '2022-07-14 06:02:30', '2022-07-14 06:02:30'),
+(234, 'Frutika Grape Juice 250ml', 'PC-234', 'frutika-grape-juice-250ml', 1, NULL, 4, 1, 12, 4, 25, 30, 25, 10, 250, NULL, 'uploads/product_image/frutika-grape-juice-250ml.jpg', NULL, 1, '2022-07-14 06:07:41', '2022-07-14 06:07:41'),
+(235, 'Alltime Sweet Toast', 'PC-235', 'alltime-sweet-toast', 1, NULL, 4, 1, 4, 6, 55, 60, 60, 10, 550, NULL, 'uploads/product_image/0279404_all-time-sweet-toast-350gm.webp', NULL, 1, '2022-07-14 06:11:01', '2022-07-14 06:11:01'),
+(236, 'Alltime Chocolate Cake 60gm', 'PC-236', 'alltime-chocolate-cake-60gm', 1, NULL, 4, 1, 4, 6, 55, 65, 55, NULL, 0, NULL, 'uploads/product_image/alltime_chocolate_cake.png', NULL, 1, '2022-07-14 06:11:42', '2022-07-14 06:11:42'),
+(237, 'Alltime Honeycomb 20gm', 'PC-237', 'alltime-honeycomb-20gm', 1, NULL, 4, 1, 4, 6, 12, 15, 12, 20, 240, NULL, 'uploads/product_image/alltime_honeycomb.png', NULL, 1, '2022-07-14 06:13:34', '2022-07-14 06:13:34'),
+(238, 'Pran Drinko Mango 250ml', 'PC-238', 'pran-drinko-mango-250ml', 1, NULL, 4, NULL, 4, 6, 20, 30, 20, 20, 400, NULL, 'uploads/product_image/drinko mango.jpg', NULL, 1, '2022-07-14 06:17:23', '2022-07-14 06:17:23'),
+(239, 'Pran Drinko Litchi 250ml', 'PC-239', 'pran-drinko-litchi-250ml', 1, NULL, 4, 1, 4, 6, 20, 30, 20, NULL, 0, NULL, 'uploads/product_image/drinko_litchi.jpg', NULL, 1, '2022-07-14 06:17:50', '2022-07-14 06:17:50'),
+(240, 'Pran Drinko Strawberry 250ml', 'PC-240', 'pran-drinko-strawberry-250ml', 1, NULL, 4, 1, 4, 6, 20, 30, 20, NULL, 0, NULL, 'uploads/product_image/drinko strawberry.jpg', NULL, 1, '2022-07-14 06:18:43', '2022-07-14 06:18:43'),
+(241, 'Pran Drinko Pineapple 250ml', 'PC-241', 'pran-drinko-pineapple-250ml', 1, NULL, 4, 1, 4, 6, 20, 30, 20, NULL, 0, NULL, 'uploads/product_image/Pran-Drinko-Pineapple-Juice-250-ml-510x510.jpg', NULL, 1, '2022-07-14 06:19:29', '2022-07-14 06:19:29'),
+(242, 'Pran Potata 250gm', 'PC-242', 'pran-potata-250gm', 1, NULL, 2, NULL, 4, 6, 12, 20, 12, 200, 2400, NULL, 'uploads/product_image/pran potata.jpg', NULL, 1, '2022-07-14 06:20:26', '2022-07-14 06:20:26'),
+(243, 'Pran Milk 1L', 'PC-243', 'pran-milk-1l', 1, NULL, 2, NULL, 12, 6, 80, 90, 80, 50, 4000, NULL, 'uploads/product_image/pran milk.png', NULL, 1, '2022-07-14 06:21:11', '2022-07-14 06:21:11'),
+(244, 'Teer ATA 2kg', 'PC-244', 'teer-ata-2kg', 1, NULL, 1, NULL, 4, 7, 180, 200, 180, 50, 9000, NULL, 'uploads/product_image/teer-flour-atta-2-kg.jpg', NULL, 1, '2022-07-14 06:41:50', '2022-07-14 06:41:50'),
+(245, 'Teer Moida 2kg', 'PC-245', 'teer-moida-2kg', 1, NULL, 1, NULL, 4, 7, 190, 200, 190, 50, 9500, NULL, 'uploads/product_image/teer-white-flour-maida-2-kg.jpg', NULL, 1, '2022-07-14 06:42:31', '2022-07-14 06:42:31'),
+(246, 'Teer Sugar 1kg', 'PC-246', 'teer-sugar-1kg', 1, NULL, 1, NULL, 4, 7, 90, 100, 90, 50, 4500, NULL, 'uploads/product_image/Teer-sugar-refined.webp', NULL, 1, '2022-07-14 06:43:15', '2022-07-14 06:43:15'),
+(247, 'Teer Salt 1kg', 'PC-247', 'teer-salt-1kg', 1, NULL, 1, NULL, 4, 7, 60, 70, 60, 50, 3000, NULL, 'uploads/product_image/teer salt.jpg', NULL, 1, '2022-07-14 06:43:59', '2022-07-14 06:43:59'),
+(248, 'Ruchi Mixed Pickle 400gm', 'PC-248', 'ruchi-mixed-pickle-400gm', 1, NULL, 4, 1, 4, 7, 75, 80, 75, 50, 3750, NULL, 'uploads/product_image/43.-Ruchi-Mixed-Pickle-400gm-130tk.webp', NULL, 1, '2022-07-14 06:44:48', '2022-07-14 06:44:48'),
+(249, 'fff', 'PC-249', 'fff', 1, NULL, 1, NULL, 10, 2, 2344, 3455, 1456, 55, 128920, 10, 'uploads/product_image/teer salt.jpg', 'wryjukl', 1, '2022-07-18 12:24:56', '2022-07-18 12:24:56'),
+(250, 'test', 'PC-250', 'test', 2, NULL, 2, NULL, 7, 4, 123, 250, 200, 2131, 262113, 11, 'uploads/product_image/$$ (2).png', 'dfdffggg', 1, '2022-08-25 08:27:01', '2022-08-25 08:27:01'),
 (251, 'efasdf', 'PC-251', 'efasdf', 2, NULL, 1, NULL, 7, 4, 1231, 123, 1231, 123, 151413, 12, NULL, 'fdafd', 1, '2022-08-31 08:56:16', '2022-08-31 08:56:16'),
-(253, 'test2', 'PC-252', 'test2', 1, NULL, 2, NULL, 7, 2, 1200, 1300, 1000, 10, 12000, 10, 'public/uploads/product_image/download.jpg', 'ertert', 1, '2022-09-11 10:48:18', '2022-09-11 10:48:18'),
+(253, 'test2', 'PC-252', 'test2', 1, NULL, 2, NULL, 7, 2, 1200, 1300, 1000, 10, 12000, 10, 'uploads/product_image/download.jpg', 'ertert', 1, '2022-09-11 10:48:18', '2022-09-11 10:48:18'),
 (254, 'shoe', 'PC-254', 'shoe', 2, NULL, 5, NULL, 8, 2, 2500, 2700, 2600, 25, 62500, 10, NULL, 'gsgfsahuds', 1, '2022-09-11 11:13:10', '2022-09-11 11:13:10'),
-(255, 'Cocacola', 'PC-255', 'cocacola', 1, NULL, 4, 1, 12, 4, 100, 110, 105, 200, 20000, 50, 'public/uploads/product_image/$$-2 (2).png', 'Cocacola Regular 2l', 1, '2022-09-18 06:51:13', '2022-09-18 06:51:13'),
+(255, 'Cocacola', 'PC-255', 'cocacola', 1, NULL, 4, 1, 12, 4, 100, 110, 105, 200, 20000, 50, 'uploads/product_image/$$-2 (2).png', 'Cocacola Regular 2l', 1, '2022-09-18 06:51:13', '2022-09-18 06:51:13'),
 (256, 'Napa', 'PC-256', 'napa', 2, NULL, 4, 1, 8, 1, 2, 2, 1.9, 200, 360, 40, NULL, NULL, 1, '2022-09-18 07:36:20', '2022-09-18 07:36:20'),
-(257, 'test4', 'PC-257', 'test4', 2, NULL, 4, 1, 8, 3, 120, 130, 125, 200, 24000, 150, 'public/uploads/product_image/App. Batch 5, Class 1.1.jpeg', 'fajhffshg', 1, '2022-09-19 10:12:42', '2022-09-19 10:12:42'),
+(257, 'test4', 'PC-257', 'test4', 2, NULL, 4, 1, 8, 3, 120, 130, 125, 200, 24000, 150, 'uploads/product_image/App. Batch 5, Class 1.1.jpeg', 'fajhffshg', 1, '2022-09-19 10:12:42', '2022-09-19 10:12:42'),
 (258, 'hexisol', 'PC-258', 'hexisol', 5, NULL, 6, 2, 8, 23, 150, 165, 160, 10, 1500, 8, NULL, 'adsas', 1, '2022-09-19 10:40:13', '2022-09-19 10:40:13'),
 (259, 'mum', 'PC-259', 'mum', 3, NULL, 4, 1, 4, 5, 12, 15, 13, 10, 120, 8, NULL, 'fjbfjhsfm', 1, '2022-09-20 10:15:11', '2022-09-20 10:15:11'),
 (260, 'Angelic', 'PC-260', 'angelic', 1, NULL, 7, 3, 12, 24, 240, 245, 243, 500, 120000, 50, NULL, 'fgjuhkiu', 1, '2022-09-20 10:38:10', '2022-09-20 10:38:10'),
@@ -1008,8 +1020,8 @@ INSERT INTO `products` (`id`, `name`, `code`, `slug`, `supplier`, `codeSymbology
 (271, 'Angelic Air Freshener', 'PC-271', 'angelic-air-freshener', 1, NULL, 7, 3, 5, 24, 200, 240, 220, 10, 2000, NULL, NULL, NULL, 1, '2022-12-14 12:31:16', '2022-12-14 12:31:16'),
 (272, 'mosur Daal', 'PC-272', 'mosur-daal', 1, NULL, 2, NULL, 4, 26, 135, 140, 1500, 30, 0, 5, NULL, NULL, 1, '2022-12-18 03:09:52', '2022-12-18 03:09:52'),
 (276, 'nimki buiscuit', 'PC-273', 'nimki-buiscuit', 1, NULL, 1, NULL, 8, 7, 20, 25, 23, 5, 100, 2, NULL, NULL, 1, '2022-12-24 06:52:37', '2022-12-24 06:52:37'),
-(278, 'Tibbot', 'PC-277', 'tibbot', 6, NULL, 9, NULL, 8, 9, 325, 332, 329.5, 50, 16250, 5, 'public/uploads/product_image/ponds.jpg', NULL, 1, '2022-12-31 08:26:01', '2022-12-31 08:26:01'),
-(279, 'Close up', 'PC-279', 'close-up', 7, NULL, 10, NULL, 8, 28, 45, 60, 50, 40, 1800, 10, 'public/uploads/product_image/jakarta-indonesia-august-2021-brand-260nw-2030043356.webp', 'pakhi vai akhon toothpaste sell kore', 1, '2023-01-03 04:55:34', '2023-01-03 04:55:34'),
+(278, 'Tibbot', 'PC-277', 'tibbot', 6, NULL, 9, NULL, 8, 9, 325, 332, 329.5, 50, 16250, 5, NULL, NULL, 1, '2022-12-31 08:26:01', '2022-12-31 08:26:01'),
+(279, 'Close up', 'PC-279', 'close-up', 7, NULL, 10, NULL, 8, 28, 45, 60, 50, 40, 1800, 10, NULL, 'pakhi vai akhon toothpaste sell kore', 1, '2023-01-03 04:55:34', '2023-01-03 04:55:34'),
 (280, 'osman goni', 'PC-280', 'osman-goni', 1, NULL, 8, 4, 5, 28, 325, 332, 329.5, 1, 325, 5, NULL, NULL, 1, '2023-01-18 02:25:14', '2023-01-18 02:25:14'),
 (281, 'Mizanur Rahman', 'PC-281', 'mizanur-rahman', 1, NULL, 4, 1, 5, 2, 325, 332, 329.5, 2, 650, 5, NULL, NULL, 1, '2023-01-18 02:32:03', '2023-01-18 02:32:03'),
 (282, 'kjhgj', 'PC-282', 'kjhgj', 2, NULL, 2, NULL, 4, 7, 50, 55, 52, 4, 200, 2, NULL, NULL, 1, '2023-01-18 11:27:21', '2023-01-18 11:27:21'),
@@ -1017,10 +1029,10 @@ INSERT INTO `products` (`id`, `name`, `code`, `slug`, `supplier`, `codeSymbology
 (285, 'Bucket', 'PC-284', 'bucket', 1, NULL, 8, 4, 8, 2, 200, 280, 250, 100, 20000, 10, NULL, 'Good', 1, '2023-01-25 04:37:39', '2023-01-25 04:37:39'),
 (286, 'PRIDE Cola', 'PC-286', 'pride-cola', 1, NULL, 9, NULL, 8, 24, 15, 20, 17, 100, 1500, 50, NULL, 'Very good quality product', 1, '2023-01-25 04:58:29', '2023-01-25 04:58:29'),
 (287, 'pen', 'PC-287', 'pen', 4, NULL, 8, 4, 8, 6, 5, 10, 8, 100, 500, 10, NULL, NULL, 1, '2023-01-25 05:10:02', '2023-01-25 05:10:02'),
-(288, 'Karim T-Shirt', 'PC-288', 'karim-t-shirt', 1, NULL, 8, 4, 8, 26, 450, 550, 500, 24, 10800, 2, 'public/uploads/product_image/download.jpeg', NULL, 1, '2023-01-25 05:25:23', '2023-01-25 05:25:23'),
-(289, 'battery', 'PC-289', 'battery', 1, NULL, 6, 2, 8, 23, 1250, 1500, 1350, 50, 62500, 2, 'public/uploads/product_image/download (1).jpeg', 'Good quality Battery', 1, '2023-01-25 05:40:28', '2023-01-25 05:40:28'),
+(288, 'Karim T-Shirt', 'PC-288', 'karim-t-shirt', 1, NULL, 8, 4, 8, 26, 450, 550, 500, 24, 10800, 2, NULL, NULL, 1, '2023-01-25 05:25:23', '2023-01-25 05:25:23'),
+(289, 'battery', 'PC-289', 'battery', 1, NULL, 6, 2, 8, 23, 1250, 1500, 1350, 50, 62500, 2, NULL, 'Good quality Battery', 1, '2023-01-25 05:40:28', '2023-01-25 05:40:28'),
 (290, 'MILK', 'PC-290', 'milk', 6, NULL, 9, NULL, 4, 5, 200, 250, NULL, 10, 2000, NULL, NULL, NULL, 1, '2023-01-25 05:58:43', '2023-01-25 05:58:43'),
-(291, 'Dust Pan', 'PC-291', 'dust-pan', 1, NULL, 7, 3, 8, 23, 80, 110, 90, 50, 4000, 5, 'public/uploads/product_image/plastic-dust-pan-1-pcs.jpeg', NULL, 1, '2023-01-26 03:52:12', '2023-01-26 03:52:12'),
+(291, 'Dust Pan', 'PC-291', 'dust-pan', 1, NULL, 7, 3, 8, 23, 80, 110, 90, 50, 4000, 5, NULL, NULL, 1, '2023-01-26 03:52:12', '2023-01-26 03:52:12'),
 (292, 'Pride 250ml', 'PC-292', 'pride-250ml', 1, NULL, 9, NULL, 8, NULL, 20, 30, 25, 100, 2000, 10, NULL, NULL, 1, '2023-01-26 04:19:01', '2023-01-26 04:19:01'),
 (293, 'Pot', 'PC-293', 'pot', 1, NULL, 6, 2, 8, 6, 50, 70, 60, 100, 5000, 5, NULL, NULL, 1, '2023-01-26 04:31:44', '2023-01-26 04:31:44'),
 (294, 'Black Tea', 'PC-294', 'black-tea', 7, NULL, 8, 4, 8, 23, 280, 320, 290, 100, 28000, 10, NULL, NULL, 1, '2023-01-26 04:40:35', '2023-01-26 04:40:35'),
@@ -1045,9 +1057,9 @@ INSERT INTO `products` (`id`, `name`, `code`, `slug`, `supplier`, `codeSymbology
 (314, 'lamp', 'PC-314', 'lamp', 6, NULL, 8, 4, 8, 23, 250, 360, 280, 120, 30000, 30, NULL, NULL, 1, '2023-01-29 07:08:16', '2023-01-29 07:08:16'),
 (315, 'pant', 'PC-315', 'pant', 2, NULL, 8, 4, 8, 9, 400, 500, 450, 100, 40000, 20, NULL, NULL, 1, '2023-01-29 07:13:57', '2023-01-29 07:13:57'),
 (316, 'odonil', 'PC-316', 'odonil', 1, NULL, 7, 3, 8, 23, 40, 50, 45, 150, 6000, 30, NULL, NULL, 1, '2023-01-29 07:18:34', '2023-01-29 07:18:34'),
-(317, 'I PHONE 15 PRO MAX', 'PC-317', 'i-phone-15-pro-max', 1, NULL, 8, 4, 8, 23, 120000, 150000, 140000, 1000, 120000000, 50, 'public/uploads/product_image/apple-iphone-14-pro.jpg', NULL, 1, '2023-02-05 04:48:31', '2023-02-05 04:48:31'),
+(317, 'I PHONE 15 PRO MAX', 'PC-317', 'i-phone-15-pro-max', 1, NULL, 8, 4, 8, 23, 120000, 150000, 140000, 1000, 120000000, 50, NULL, NULL, 1, '2023-02-05 04:48:31', '2023-02-05 04:48:31'),
 (319, 'Sneaker', 'PC-318', 'sneaker', 2, NULL, 5, NULL, 8, 26, 1500, 1700, 48000, 30, 45000, 5, NULL, NULL, 1, '2023-02-06 06:05:21', '2023-02-06 06:05:21'),
-(321, 'aci chal', 'PC-320', 'aci-chal', 1, NULL, 1, NULL, 4, 23, 2500, 3000, 2700, 50, 125000, 5, 'public/uploads/product_image/5B558506.png', NULL, 1, '2023-02-22 04:52:31', '2023-02-22 04:52:31'),
+(321, 'aci chal', 'PC-320', 'aci-chal', 1, NULL, 1, NULL, 4, 23, 2500, 3000, 2700, 50, 125000, 5, NULL, NULL, 1, '2023-02-22 04:52:31', '2023-02-22 04:52:31'),
 (322, 'Panjabi', 'PC-322', 'panjabi', 7, NULL, 8, 4, 8, 28, 550, 1250, 1050, 150, 82500, 5, NULL, 'Good Quality Emam Khadi Panjabi', 1, '2023-03-04 04:15:06', '2023-03-04 04:15:06'),
 (323, 'Amlan', 'PC-323', 'amlan', 4, NULL, 8, 4, 8, 9, 750, 1450, 1200, 100, 75000, 10, NULL, NULL, 1, '2023-03-04 04:42:37', '2023-03-04 04:42:37'),
 (324, 'Shari', 'PC-324', 'shari', 6, NULL, 1, NULL, 8, 25, 600, 1200, 1000, 50, 30000, 10, NULL, NULL, 1, '2023-03-04 05:32:43', '2023-03-04 05:32:43'),
@@ -1056,12 +1068,12 @@ INSERT INTO `products` (`id`, `name`, `code`, `slug`, `supplier`, `codeSymbology
 (327, 'Borka', 'PC-327', 'borka', 2, NULL, 8, 4, 8, 24, 500, 1000, 700, 100, 50000, 10, NULL, NULL, 1, '2023-03-04 06:02:23', '2023-03-04 06:02:23'),
 (328, 'Maroned', 'PC-328', 'maroned', 4, NULL, 8, 4, 8, 25, 700, 1400, 1000, 100, 70000, 5, NULL, NULL, 1, '2023-03-04 06:12:22', '2023-03-04 06:12:22'),
 (329, 'Rolex watch', 'PC-329', 'rolex-watch', 3, NULL, 8, 4, 8, 6, 150000, 250000, 200000, 150, 22500000, 2, NULL, NULL, 1, '2023-03-04 06:17:49', '2023-03-04 06:17:49'),
-(330, 'Book', 'PC-330', 'book', 4, NULL, 8, 4, 8, 24, 250, 360, 300, 150, 37500, 10, 'public/uploads/product_image/book_noun_001_01679.jpg', NULL, 1, '2023-03-04 06:25:47', '2023-03-04 06:25:47'),
+(330, 'Book', 'PC-330', 'book', 4, NULL, 8, 4, 8, 24, 250, 360, 300, 150, 37500, 10, NULL, NULL, 1, '2023-03-04 06:25:47', '2023-03-04 06:25:47'),
 (331, 'note book', 'PC-331', 'note-book', 1, NULL, 2, NULL, 8, 23, 50, 75, 70, 100, 5000, 5, NULL, NULL, 1, '2023-03-04 06:48:20', '2023-03-04 06:48:20'),
 (332, 'gucci flora', 'PC-332', 'gucci-flora', 7, NULL, 8, 4, 8, 5, 6500, 11000, 9000, 100, 650000, 10, NULL, NULL, 1, '2023-03-04 06:54:35', '2023-03-04 06:54:35'),
-(333, 'Coca Cola', 'PC-333', 'coca-cola', 7, NULL, 9, NULL, 8, 27, 25, 30, 27, 10, 250, 3, 'public/uploads/product_image/coca cola.jpg', NULL, 1, '2023-03-04 09:29:03', '2023-03-04 09:29:03'),
-(334, 'Betaseptic Hand Rub', 'PC-334', 'betaseptic-hand-rub', 1, NULL, 6, 2, 4, 23, 120, 130, 125, NULL, 0, NULL, 'public/uploads/product_image/Hand Rub.png', 'Contains 0.5% w/v chlorhexidine gluconate', 1, '2023-03-27 08:53:37', '2023-03-27 08:53:37'),
-(335, 'Dry Cake', 'PC-335', 'dry-cake', 6, NULL, 8, 4, 8, 23, 8, 10, 9, 100, 800, 20, 'public/uploads/product_image/Untitled.jpeg', 'Good Dry Cake', 1, '2023-04-04 06:00:34', '2023-04-04 06:00:34'),
+(333, 'Coca Cola', 'PC-333', 'coca-cola', 7, NULL, 9, NULL, 8, 27, 25, 30, 27, 10, 250, 3, NULL, NULL, 1, '2023-03-04 09:29:03', '2023-03-04 09:29:03'),
+(334, 'Betaseptic Hand Rub', 'PC-334', 'betaseptic-hand-rub', 1, NULL, 6, 2, 4, 23, 120, 130, 125, NULL, 0, NULL, NULL, 'Contains 0.5% w/v chlorhexidine gluconate', 1, '2023-03-27 08:53:37', '2023-03-27 08:53:37'),
+(335, 'Dry Cake', 'PC-335', 'dry-cake', 6, NULL, 8, 4, 8, 23, 8, 10, 9, 100, 800, 20, NULL, 'Good Dry Cake', 1, '2023-04-04 06:00:34', '2023-04-04 06:00:34'),
 (336, 'Modern Laban', 'PC-336', 'modern-laban', 1, NULL, 9, NULL, 8, 24, 30, 50, 45, 100, 3000, 20, NULL, 'Very Healthy Product', 1, '2023-04-04 06:05:32', '2023-04-04 06:05:32'),
 (337, 'Meggi', 'PC-337', 'meggi', 2, NULL, 2, NULL, 8, 7, 50, 55, 52, 100, 5000, 10, NULL, NULL, 1, '2023-04-04 06:49:03', '2023-04-04 06:49:03'),
 (338, '7up', 'PC-338', '7up', 4, NULL, 9, NULL, 8, 3, 30, 55, 40, 600, 18000, 50, NULL, NULL, 1, '2023-04-04 06:55:58', '2023-04-04 06:55:58'),
@@ -1089,24 +1101,24 @@ INSERT INTO `products` (`id`, `name`, `code`, `slug`, `supplier`, `codeSymbology
 (374, 'HEINEKEN 500ML', 'PC-374', 'heineken-500ml', 3, NULL, 9, NULL, 8, 6, 350, 415, 380, 200, 70000, 20, NULL, 'ENERGY DRINKS', 1, '2023-04-06 06:04:52', '2023-04-06 06:04:52'),
 (375, 'FRUTIKA PRAN', 'PC-375', 'frutika-pran', 3, NULL, 9, NULL, 8, 27, 40, 45, 42, 100, 4000, 50, NULL, NULL, 1, '2023-04-06 06:11:17', '2023-04-06 06:11:17'),
 (376, 'MIRINDA', 'PC-376', 'mirinda', 6, NULL, 9, NULL, 8, 27, 65, 70, 66, NULL, 0, 10, NULL, NULL, 1, '2023-04-06 06:19:47', '2023-04-06 06:19:47'),
-(377, 'Dim', 'PC-377', 'dim', 6, NULL, 1, NULL, 8, 23, 9, 13, 10, 4, 36, 2, 'public/uploads/product_image/Egg_baking-ingredients-e1584136402126-400x400.jpg', NULL, 1, '2023-04-08 04:35:38', '2023-04-08 04:35:38'),
+(377, 'Dim', 'PC-377', 'dim', 6, NULL, 1, NULL, 8, 23, 9, 13, 10, 4, 36, 2, NULL, NULL, 1, '2023-04-08 04:35:38', '2023-04-08 04:35:38'),
 (378, 'Jamdani Shari', 'PC-378', 'jamdani-shari', 1, NULL, 1, NULL, 8, 25, 1500, 3000, 2500, 25, 37500, 5, NULL, NULL, 1, '2023-04-15 04:53:20', '2023-04-15 04:53:20'),
-(379, 'Dairy Milk(Dark)', 'PC-379', 'dairy-milkdark', 3, NULL, 9, NULL, 11, 6, 35, 50, 48, 200, 7000, 10, 'public/uploads/product_image/cocacola.jpg', NULL, 1, '2023-04-17 04:34:40', '2023-04-17 04:34:40'),
+(379, 'Dairy Milk(Dark)', 'PC-379', 'dairy-milkdark', 3, NULL, 9, NULL, 11, 6, 35, 50, 48, 200, 7000, 10, NULL, NULL, 1, '2023-04-17 04:34:40', '2023-04-17 04:34:40'),
 (380, 'body spry', 'PC-380', 'body-spry', 7, NULL, 8, 4, 8, 25, 240, 350, 290, 120, 28800, 10, NULL, NULL, 1, '2023-04-17 04:54:06', '2023-04-17 04:54:06'),
 (381, 'borka(abaya)', 'PC-381', 'borkaabaya', 3, NULL, 7, 3, 8, NULL, 1500, 2000, 1600, 200, 300000, 10, NULL, NULL, 1, '2023-04-18 04:05:37', '2023-04-18 04:05:37'),
 (382, 'books', 'PC-382', 'books', 5, NULL, 8, 4, 8, 25, 400, 500, 440, 300, 120000, 15, NULL, NULL, 1, '2023-04-18 04:12:18', '2023-04-18 04:12:18'),
 (383, 'hejab', 'PC-383', 'hejab', 1, NULL, 8, 4, 8, 23, 200, 300, 250, 200, 40000, 10, NULL, NULL, 1, '2023-04-18 04:18:47', '2023-04-18 04:18:47'),
 (384, 'mobile', 'PC-384', 'mobile', 1, NULL, 5, NULL, 8, 25, 15000, 25000, 20000, 100, 1500000, 20, NULL, NULL, 1, '2023-04-18 04:28:06', '2023-04-18 04:28:06'),
 (386, 'lungi', 'PC-385', 'lungi', 6, NULL, 8, 4, 8, 26, 35, 300, 290, 10, 350, 5, NULL, '100% cotton', 1, '2023-04-30 07:00:27', '2023-04-30 07:00:27'),
-(387, 'Angelic Fresh', 'PC-387', 'angelic-fresh', 3, NULL, 7, 3, 8, 23, 240, 250, 245, 50, 12000, 5, 'public/uploads/product_image/angelic-fresh-air-freshener-citrus-burst-300-ml.jpg', NULL, 1, '2023-05-06 07:02:53', '2023-05-06 07:02:53'),
+(387, 'Angelic Fresh', 'PC-387', 'angelic-fresh', 3, NULL, 7, 3, 8, 23, 240, 250, 245, 50, 12000, 5, NULL, NULL, 1, '2023-05-06 07:02:53', '2023-05-06 07:02:53'),
 (388, 'Pepsi 500ml', 'PC-388', 'pepsi-500ml', 4, NULL, 9, NULL, 8, 27, 30, 45, 40, 100, 3000, 10, NULL, NULL, 1, '2023-06-17 06:29:49', '2023-06-17 06:29:49'),
 (389, 'pepsi 250 ml', 'PC-389', 'pepsi-250-ml', 3, NULL, 9, NULL, 8, 27, 15, 25, 20, 100, 1500, 5, NULL, NULL, 1, '2023-06-17 06:52:52', '2023-06-17 06:52:52'),
 (390, 'lexux', 'PC-390', 'lexux', 2, NULL, 6, 2, 8, 6, 60, 80, 70, 50, 3000, 10, NULL, NULL, 1, '2023-06-17 07:04:55', '2023-06-17 07:04:55'),
 (391, 'vivo', 'PC-391', 'vivo', 5, NULL, 8, 4, 5, 24, 450, 560, 520, 200, 90000, 15, NULL, NULL, 1, '2023-06-17 07:16:14', '2023-06-17 07:16:14'),
 (392, 'oppo', 'PC-392', 'oppo', 5, NULL, 8, 4, 8, 24, 15000, 18000, 17000, 20, 300000, 5, NULL, NULL, 1, '2023-06-17 07:27:36', '2023-06-17 07:27:36'),
 (393, 'tom tailor', 'PC-393', 'tom-tailor', 4, NULL, 5, NULL, 8, 25, 1500, 2000, 1600, 120, 180000, 10, NULL, NULL, 1, '2023-06-17 07:39:19', '2023-06-17 07:39:19'),
-(394, 'Pusti Drinking Water', 'PC-394', 'pusti-drinking-water', 2, NULL, 9, NULL, 8, 3, 10, 15, 15, 24, 240, 8, 'public/uploads/product_image/pusti.jpg', 'Pusti Drinking Water 500ml', 1, '2023-06-25 07:24:32', '2023-06-25 07:24:32'),
-(398, 'apex shoe', 'PC-395', 'apex-shoe', 2, NULL, 5, NULL, 8, 24, 500, 600, 590, 110, 55000, 50, 'public/uploads/product_image/black shoe.webp', 'formal black \r\nladies\r\n36', 1, '2023-06-25 07:56:16', '2023-06-25 07:56:16'),
+(394, 'Pusti Drinking Water', 'PC-394', 'pusti-drinking-water', 2, NULL, 9, NULL, 8, 3, 10, 15, 15, 24, 240, 8, NULL, 'Pusti Drinking Water 500ml', 1, '2023-06-25 07:24:32', '2023-06-25 07:24:32'),
+(398, 'apex shoe', 'PC-395', 'apex-shoe', 2, NULL, 5, NULL, 8, 24, 500, 600, 590, 110, 55000, 50, NULL, 'formal black \r\nladies\r\n36', 1, '2023-06-25 07:56:16', '2023-06-25 07:56:16'),
 (400, 'soap', 'PC-399', 'soap', 4, NULL, 6, 2, 8, 1, 250, 300, 280, 2, 500, NULL, NULL, NULL, 1, '2023-07-05 07:07:55', '2023-07-05 07:07:55'),
 (401, 'Pride Fresh', 'PC-401', 'pride-fresh', 7, NULL, 7, 3, 8, 23, 300, 350, 340, 100, 30000, 30, NULL, 'Very well fragrance and feel so nice', 1, '2023-07-05 07:29:02', '2023-07-05 07:29:02'),
 (402, 'soup', 'PC-402', 'soup', 3, NULL, 6, 2, 8, 5, 35, 60, 40, 33, 1155, 15, NULL, NULL, 1, '2023-07-05 07:35:39', '2023-07-05 07:35:39'),
@@ -1129,12 +1141,13 @@ INSERT INTO `products` (`id`, `name`, `code`, `slug`, `supplier`, `codeSymbology
 (423, 'chocolat', 'PC-423', 'chocolat', 6, NULL, 6, 2, 8, 4, 20, 40, 35, 200, 4000, 10, NULL, NULL, 1, '2023-07-06 07:06:49', '2023-07-06 07:06:49'),
 (425, 'gown', 'PC-424', 'gown', 5, NULL, 8, 4, 8, 25, 1000, 1500, 1200, 50, 50000, 10, NULL, NULL, 1, '2023-07-06 07:19:58', '2023-07-06 07:19:58'),
 (426, 'jacket', 'PC-426', 'jacket', 4, NULL, 8, 4, 8, 25, 800, 1500, 120, 100, 80000, 5, NULL, NULL, 1, '2023-07-06 07:26:23', '2023-07-06 07:26:23'),
-(427, 'Frutika Juice 250 ml', 'PC-427', 'frutika-juice-250-ml', 3, NULL, 9, NULL, 8, 4, 16, 20, 17, 10, 160, 2, 'public/uploads/product_image/frutika.webp', 'Frutika mango Juice 250 ml packet', 1, '2023-07-11 04:04:52', '2023-07-11 04:04:52'),
-(428, 'Angelic Air Freashner', 'PC-428', 'angelic-air-freashner', 1, NULL, 7, 3, 8, 23, 240, 280, NULL, NULL, 0, NULL, 'public/uploads/product_image/Airfreshner.webp', NULL, 1, '2023-07-11 05:53:03', '2023-07-11 05:53:03'),
-(429, 'T shirt', 'PC-429', 't-shirt', 1, NULL, 8, 4, 8, 25, 500, 1800, 1500, 20, 10000, 5, 'public/uploads/product_image/t shirt.jpg', NULL, 1, '2023-07-11 07:24:00', '2023-07-11 07:24:00'),
+(427, 'Frutika Juice 250 ml', 'PC-427', 'frutika-juice-250-ml', 3, NULL, 9, NULL, 8, 4, 16, 20, 17, 10, 160, 2, NULL, 'Frutika mango Juice 250 ml packet', 1, '2023-07-11 04:04:52', '2023-07-11 04:04:52'),
+(428, 'Angelic Air Freashner', 'PC-428', 'angelic-air-freashner', 1, NULL, 7, 3, 8, 23, 240, 280, NULL, NULL, 0, NULL, '', NULL, 1, '2023-07-11 05:53:03', '2023-07-11 05:53:03'),
+(429, 'T shirt', 'PC-429', 't-shirt', 1, NULL, 8, 4, 8, 25, 500, 1800, 1500, 20, 10000, 5, NULL, NULL, 1, '2023-07-11 07:24:00', '2023-07-11 07:24:00'),
 (430, 'Khadi Fatua', 'PC-430', 'khadi-fatua', 8, NULL, 8, 4, 8, 26, 500, 700, 650, 1000, 500000, 50, NULL, 'Very soft cotton dress', 1, '2023-07-13 03:54:24', '2023-07-13 03:54:24'),
 (431, 'Pure Khadi Panjabi', 'PC-431', 'pure-khadi-panjabi', 8, NULL, 8, 4, 8, 24, 1200, 1500, 1400, 1000, 1200000, 100, NULL, 'Very soft cotton panjabi. Washable....', 1, '2023-07-13 06:29:26', '2023-07-13 06:29:26'),
-(432, 'Pure khadi Chador', 'PC-432', 'pure-khadi-chador', 8, NULL, 8, 4, 8, 24, 700, 1000, 900, 1000, 700000, 50, NULL, 'Very Soft Cotton Chador', 1, '2023-07-15 04:27:11', '2023-07-15 04:27:11');
+(432, 'Pure khadi Chador', 'PC-432', 'pure-khadi-chador', 8, NULL, 8, 4, 8, 24, 700, 1000, 900, 1000, 700000, 50, NULL, 'Very Soft Cotton Chador', 1, '2023-07-15 04:27:11', '2023-07-15 04:27:11'),
+(434, 'Ispi Orange', 'PC-433', 'ispi-orange', 1, NULL, 9, NULL, 4, 7, 100, 150, 120, 100, 10000, 5, 'uploads/product_image/c4.png', 'bbvbbbbbv', 1, '2024-03-21 06:12:27', '2024-03-21 06:12:27');
 
 -- --------------------------------------------------------
 
@@ -1216,7 +1229,8 @@ INSERT INTO `purchases` (`id`, `code`, `biller_id`, `store_id`, `grand_total`, `
 (2, 'PUC-1', NULL, 1, 190, 10, NULL, 500, -320, '<p>asdasf</p>', NULL, 1, 1, 'rajshahi', '2022-05-12', '2', '2022-05-12 08:28:52', '2022-05-12 08:28:52'),
 (3, 'PUC-2', NULL, 1, 0, NULL, NULL, 5000, -5000, '5kg', NULL, 1, 1, NULL, '2022-07-13', '1', '2022-07-17 05:45:03', '2022-07-17 05:45:03'),
 (4, 'PUC-3', NULL, 1, 1565, NULL, NULL, NULL, 1565, NULL, NULL, 13, 1, NULL, '2022-12-14', '1', '2022-12-14 12:36:58', '2022-12-14 12:36:58'),
-(5, 'PUC-4', NULL, 1, 1540, NULL, NULL, NULL, 1540, NULL, NULL, 13, 1, NULL, '2022-12-24', '1', '2022-12-24 05:59:05', '2022-12-24 05:59:05');
+(5, 'PUC-4', NULL, 1, 1540, NULL, NULL, NULL, 1540, NULL, NULL, 13, 1, NULL, '2022-12-24', '1', '2022-12-24 05:59:05', '2022-12-24 05:59:05'),
+(7, 'PUC-5', NULL, 1, 0, 20, NULL, 500, -520, 'cx', NULL, 20, 1, 'Shajid', '2024-03-19', '1', '2024-03-19 08:08:15', '2024-03-19 08:08:15');
 
 -- --------------------------------------------------------
 
@@ -1272,7 +1286,8 @@ CREATE TABLE `roles` (
 INSERT INTO `roles` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES
 (1, 'super_admin', 'admin', '2020-02-10 06:33:38', '2020-02-10 06:33:38'),
 (2, 'manager', 'admin', '2020-02-10 07:37:44', '2020-02-10 07:37:44'),
-(3, 'customer', 'admin', '2020-09-10 07:54:24', '2020-09-10 07:54:24');
+(3, 'customer', 'admin', '2020-09-10 07:54:24', '2020-09-10 07:54:24'),
+(4, 'Demo', 'admin', '2024-03-24 05:43:57', '2024-03-24 05:43:57');
 
 -- --------------------------------------------------------
 
@@ -1296,12 +1311,15 @@ INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 (3, 2),
 (4, 1),
 (4, 2),
+(4, 4),
 (5, 1),
 (5, 2),
 (6, 1),
 (6, 2),
+(6, 4),
 (7, 1),
 (7, 2),
+(7, 4),
 (8, 1),
 (8, 2),
 (9, 1),
@@ -1309,31 +1327,38 @@ INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 (10, 2),
 (11, 1),
 (11, 2),
+(11, 4),
 (12, 1),
 (13, 1),
 (13, 2),
+(13, 4),
 (14, 1),
 (15, 1),
 (16, 1),
+(16, 4),
 (17, 1),
 (17, 2),
 (18, 1),
 (19, 1),
 (20, 1),
+(20, 4),
 (21, 1),
 (22, 1),
 (23, 1),
 (24, 1),
+(24, 4),
 (25, 1),
 (26, 1),
 (27, 1),
 (28, 1),
+(28, 4),
 (29, 1),
 (30, 1),
 (31, 1),
 (32, 1),
 (33, 1),
 (34, 1),
+(34, 4),
 (35, 1),
 (36, 1),
 (37, 1),
@@ -1676,7 +1701,11 @@ INSERT INTO `sales` (`id`, `sales_date`, `code`, `biller_id`, `store_id`, `grand
 (404, '2023-07-15', 'IC-00000301', 1, 1, 1030, 20, 50, 1100, -70, 0, 'cash', NULL, 16, '1', '228', '2023-07-15 04:46:50', '2023-07-15 04:46:50'),
 (405, '2023-07-17', 'IC-00000302', 1, 1, 3980.5, 20, 190.5, 4000, -19.5, 0, 'cash', NULL, 14, '1', '229', '2023-07-17 07:31:50', '2023-07-17 07:31:50'),
 (406, '2023-07-17', 'IC-00000303', 1, 1, 1133, 22, 55, 1500, -367, 0, 'cash', NULL, 14, '1', '231', '2023-07-17 07:53:06', '2023-07-17 07:53:06'),
-(407, '2023-07-17', 'IC-00000304', 1, 1, 273.5, 10, 13.5, 500, -226.5, 0, 'cash', NULL, 14, '1', '232', '2023-07-17 08:06:19', '2023-07-17 08:06:19');
+(407, '2023-07-17', 'IC-00000304', 1, 1, 273.5, 10, 13.5, 500, -226.5, 0, 'cash', NULL, 14, '1', '232', '2023-07-17 08:06:19', '2023-07-17 08:06:19'),
+(409, '2024-03-17', 'IC-00000305', 1, 1, 1450, 0, 0, 1450, 0, 0, 'cash', 'paid', 18, '1', '1', '2024-03-17 06:52:53', '2024-03-17 06:52:53'),
+(410, '2024-03-19', 'IC-00000306', 1, 1, 3536, 832, 208, 5000, -1464, 0, 'card', 'tttttttttt', 20, '1', '1', '2024-03-19 05:12:20', '2024-03-19 05:12:20'),
+(411, '2024-03-19', 'IC-00000307', 1, 1, 1772, 0, 0, 5000, -3228, 0, 'cash', NULL, 20, '1', '2', '2024-03-19 05:17:09', '2024-03-19 05:17:09'),
+(412, '2024-03-21', 'IC-00000308', 1, 1, 800, 0, 0, 0, 800, 0, 'cash', 'ffgfgfg', 20, 'w', '2', '2024-03-21 08:16:58', '2024-03-21 08:16:58');
 
 -- --------------------------------------------------------
 
@@ -2612,7 +2641,18 @@ INSERT INTO `sales_products` (`id`, `sales_date`, `sale_id`, `pro_id`, `unit_cos
 (855, '2023-07-17', 407, 240, 20, 30, 1, 30, 10, 1, '2023-07-17 08:06:19', '2023-07-17 08:06:19'),
 (856, '2023-07-17', 407, 234, 25, 30, 1, 30, 5, 1, '2023-07-17 08:06:19', '2023-07-17 08:06:19'),
 (857, '2023-07-17', 407, 229, 110, 120, 1, 120, 10, 1, '2023-07-17 08:06:19', '2023-07-17 08:06:19'),
-(858, '2023-07-17', 407, 232, 85, 90, 1, 90, 5, 1, '2023-07-17 08:06:19', '2023-07-17 08:06:19');
+(858, '2023-07-17', 407, 232, 85, 90, 1, 90, 5, 1, '2023-07-17 08:06:19', '2023-07-17 08:06:19'),
+(862, '2024-03-17', 409, 221, 500, 520, 1, 520, 20, 1, '2024-03-17 06:52:53', '2024-03-17 06:52:53'),
+(863, '2024-03-17', 409, 222, 800, 850, 1, 850, 50, 1, '2024-03-17 06:52:53', '2024-03-17 06:52:53'),
+(864, '2024-03-17', 409, 231, 70, 80, 1, 80, 10, 1, '2024-03-17 06:52:53', '2024-03-17 06:52:53'),
+(865, '2024-03-19', 410, 221, 500, 520, 8, 4160, 160, 1, '2024-03-19 05:12:20', '2024-03-19 05:12:20'),
+(866, '2024-03-19', 411, 221, 500, 520, 1, 520, 20, 1, '2024-03-19 05:17:09', '2024-03-19 05:17:09'),
+(867, '2024-03-19', 411, 222, 800, 850, 1, 850, 50, 1, '2024-03-19 05:17:09', '2024-03-19 05:17:09'),
+(868, '2024-03-19', 411, 223, 15, 12, 1, 12, -3, 1, '2024-03-19 05:17:09', '2024-03-19 05:17:09'),
+(869, '2024-03-19', 411, 224, 26, 30, 1, 30, 4, 1, '2024-03-19 05:17:09', '2024-03-19 05:17:09'),
+(870, '2024-03-19', 411, 225, 270, 280, 1, 280, 10, 1, '2024-03-19 05:17:10', '2024-03-19 05:17:10'),
+(871, '2024-03-19', 411, 226, 70, 80, 1, 80, 10, 1, '2024-03-19 05:17:10', '2024-03-19 05:17:10'),
+(872, '2024-03-21', 412, 222, 800, 800, 1, 800, 0, 1, '2024-03-21 08:16:58', '2024-03-21 08:16:58');
 
 -- --------------------------------------------------------
 
@@ -3038,7 +3078,8 @@ INSERT INTO `stocks` (`id`, `pro_id`, `stock`, `store`, `start_stock`, `last_imp
 (399, 430, 0, NULL, NULL, NULL, NULL, '2023-07-13 03:54:24', '2023-07-13 03:54:24'),
 (400, 431, 0, NULL, NULL, NULL, NULL, '2023-07-13 06:29:26', '2023-07-13 06:29:26'),
 (401, 432, 0, NULL, NULL, NULL, NULL, '2023-07-15 04:27:11', '2023-07-15 04:27:11'),
-(402, 433, 0, NULL, NULL, NULL, NULL, '2023-08-15 16:01:02', '2023-08-15 16:01:02');
+(402, 433, 0, NULL, NULL, NULL, NULL, '2023-08-15 16:01:02', '2023-08-15 16:01:02'),
+(403, 434, 0, NULL, NULL, NULL, NULL, '2024-03-21 06:12:27', '2024-03-21 06:12:27');
 
 -- --------------------------------------------------------
 
@@ -3091,7 +3132,9 @@ INSERT INTO `store_attendences` (`id`, `attendence_owner`, `employee_name`, `emp
 (1, 18, 'Selma Robbins', 21, 1, '22/08/2023', '2023-08-22 16:14:07', '2023-08-22 16:14:07'),
 (2, 18, 'shakil', 112, 1, '22/08/2023', '2023-08-22 16:14:07', '2023-08-22 16:14:07'),
 (3, 18, 'Selma Robbins', 21, 1, '23/08/2023', '2023-08-22 18:05:17', '2023-08-22 18:05:17'),
-(4, 18, 'shakil', 112, 1, '23/08/2023', '2023-08-22 18:05:17', '2023-08-22 18:05:17');
+(4, 18, 'shakil', 112, 1, '23/08/2023', '2023-08-22 18:05:17', '2023-08-22 18:05:17'),
+(5, 20, 'Selma Robbins', 21, 1, '20/03/2024', '2024-03-20 06:53:16', '2024-03-20 06:53:16'),
+(6, 20, 'shakil', 112, 1, '20/03/2024', '2024-03-20 06:53:16', '2024-03-20 06:53:16');
 
 -- --------------------------------------------------------
 
@@ -3121,7 +3164,8 @@ INSERT INTO `sub_categories` (`id`, `name`, `image`, `code`, `description`, `slu
 (2, '250', NULL, 'SCC-2', 'ddddd', '250', 1, 6, '2022-09-19 10:37:43', '2022-09-19 10:37:43'),
 (3, 'Lemon', NULL, 'SCC-3', 'jhkk;j', 'lemon', 1, 7, '2022-09-20 10:34:54', '2022-09-20 10:34:54'),
 (4, 'T-shirt', NULL, 'SCC-4', 'Hello', 't-shirt', 1, 8, '2022-12-05 04:20:12', '2022-12-05 04:20:12'),
-(5, 'shoe', NULL, 'SCC-5', NULL, 'shoe', 1, 8, '2022-12-05 04:48:44', '2022-12-05 04:48:44');
+(5, 'shoe', NULL, 'SCC-5', NULL, 'shoe', 1, 8, '2022-12-05 04:48:44', '2022-12-05 04:48:44'),
+(6, 'Herbal Shampoo', 'uploads/subcategory_image/c3.png', 'SCC-6', 'Herbal Shampoo', 'herbal-shampoo', 1, 10, '2024-03-20 09:44:43', '2024-03-20 09:44:43');
 
 -- --------------------------------------------------------
 
@@ -3162,7 +3206,8 @@ INSERT INTO `suppliers` (`id`, `company`, `mobile`, `name`, `email`, `city`, `co
 (7, 'Unilever', '01917955119', 'Pakhi', 'pakhi@gmail.com', 'Dhaka', 'Bangladesh', '1212', 'mohammadpur', NULL, NULL, NULL, 1, NULL, '2023-01-03 04:35:20', '2023-01-03 04:35:20'),
 (8, 'khadi Ghor', '0157694206', 'Farzana Akter', 'farzana045@gmail.com', 'Chattogram', 'Bangladesh', '4002', 'Boddarhat', NULL, NULL, NULL, 1, NULL, '2023-07-05 06:33:14', '2023-07-05 06:33:14'),
 (9, 'sj junaid', '01830208588', 'josim', 'sadibjunaid3088@gmail.com', 'Chattogram', 'Bangladesh', '4002', 'kolpolok', NULL, NULL, NULL, 1, NULL, '2023-07-05 07:02:47', '2023-07-05 07:02:47'),
-(10, 'sj junaid', '01830208588', 'josim', 'sadibjunaid3088@gmail.com', 'Chattogram', 'Bangladesh', '4002', 'kolpolok', NULL, NULL, NULL, 1, NULL, '2023-07-05 07:02:47', '2023-07-05 07:02:47');
+(10, 'sj junaid', '01830208588', 'josim', 'sadibjunaid3088@gmail.com', 'Chattogram', 'Bangladesh', '4002', 'kolpolok', NULL, NULL, NULL, 1, NULL, '2023-07-05 07:02:47', '2023-07-05 07:02:47'),
+(11, 'Gonzalez and Price Traders', '515645454', 'Md.Hasibur Rahman', 'shajid.hasibur1996@gmail.com', 'Uttara', 'Bangladesh', '1230', 'Uttara, Dhaka, Bangladesh', 10000, NULL, NULL, 1, 'uploads/supplier_image/p-5.jpg', '2024-03-18 09:04:52', '2024-03-18 09:04:52');
 
 -- --------------------------------------------------------
 
@@ -3556,7 +3601,7 @@ ALTER TABLE `webpros`
 -- AUTO_INCREMENT for table `admins`
 --
 ALTER TABLE `admins`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `attendences`
@@ -3574,13 +3619,13 @@ ALTER TABLE `billers`
 -- AUTO_INCREMENT for table `brands`
 --
 ALTER TABLE `brands`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `cheque_infos`
@@ -3592,13 +3637,13 @@ ALTER TABLE `cheque_infos`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=234;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=235;
 
 --
 -- AUTO_INCREMENT for table `customer_groups`
 --
 ALTER TABLE `customer_groups`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `expenses`
@@ -3622,7 +3667,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=323;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=329;
 
 --
 -- AUTO_INCREMENT for table `permissions`
@@ -3634,7 +3679,7 @@ ALTER TABLE `permissions`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=434;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=435;
 
 --
 -- AUTO_INCREMENT for table `promocodes`
@@ -3652,7 +3697,7 @@ ALTER TABLE `promotions`
 -- AUTO_INCREMENT for table `purchases`
 --
 ALTER TABLE `purchases`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `purchase_product_lists`
@@ -3664,13 +3709,13 @@ ALTER TABLE `purchase_product_lists`
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `sales`
 --
 ALTER TABLE `sales`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=409;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=413;
 
 --
 -- AUTO_INCREMENT for table `sales_due_returns`
@@ -3682,13 +3727,13 @@ ALTER TABLE `sales_due_returns`
 -- AUTO_INCREMENT for table `sales_products`
 --
 ALTER TABLE `sales_products`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=862;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=873;
 
 --
 -- AUTO_INCREMENT for table `stocks`
 --
 ALTER TABLE `stocks`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=403;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=404;
 
 --
 -- AUTO_INCREMENT for table `stores`
@@ -3700,19 +3745,19 @@ ALTER TABLE `stores`
 -- AUTO_INCREMENT for table `store_attendences`
 --
 ALTER TABLE `store_attendences`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `sub_categories`
 --
 ALTER TABLE `sub_categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `suppliers`
 --
 ALTER TABLE `suppliers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `systems`

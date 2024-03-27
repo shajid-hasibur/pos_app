@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA_Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="icon" type="image/x-icon" href="{{ asset('frontEnd/images/brac_only_logo.png') }}">
+    <link rel="icon" type="image/x-icon" href="{{ asset('frontEnd/images/codetree_favicon.png') }}">
     <!--bootstrap-->
     <link rel="stylesheet" type="text/css" href="{{ asset('admin/asset/css/bootstrap.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('admin/asset/css/all.min.css') }}">
@@ -14,6 +14,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('admin/asset/css/animate.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('admin/asset/css/bootnavbar.css') }}">
 
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
     <!--fontawesome-->
     <link rel="stylesheet" href="{{ asset('admin/asset/css/font-awesome.min.css') }}">
     <!--Tostr-->
@@ -21,6 +22,8 @@
     <!--customised css file-->
     <link rel="stylesheet" type="text/css" href="{{ asset('admin/asset/css/style.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('admin/asset/css/custom_style.css') }}">
+
+
 
     <!--Select 2-->
     <link href="{{ asset('admin/asset/css/select2.min.css') }}" rel="stylesheet" />
@@ -61,6 +64,7 @@
         @yield('adminTitle')
     </title>
     <script src="{{ asset('admin/asset/js/jquery-3.4.1.min.js') }}"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script>
         function printContent(el) {
             var restorepage = document.body.innerHTML;
@@ -84,6 +88,14 @@
         }
     </script>
     <style>
+        .dataTable-text-center {
+            text-align: center;
+        }
+
+        div.dataTables_wrapper input[type="search"] {
+            width: 400px;
+        }
+
         .top-date {
             float: right;
             font-weight: 400;
@@ -180,7 +192,7 @@
             display: none;
             padding: 20px;
             border-radius: 5px;
-            right: 55px;
+            right: 82px;
         }
 
         .del-modal::after {
@@ -285,7 +297,7 @@
     ?>
     <nav class="navbar navbar-expand-lg shadow navbar-light bg-light " id="navbar" style="padding:1px; ">
         <a class="navbar-brand" style="padding:0px;" href="{{ route('admin.dashboard') }}">
-            <img class=" ml-4" src="{{ asset('frontEnd/images/brac_full_logo.png') }}" style="width:100px ;">
+            <img class=" ml-4" src="{{ asset('frontEnd/images/codetree.png') }}" style="width:100px ;">
         </a>
         <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarcoll">
             <span class="navbar-toggler-icon"></span>

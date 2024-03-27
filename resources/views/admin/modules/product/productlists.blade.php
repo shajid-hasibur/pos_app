@@ -25,12 +25,12 @@
             vertical-align: middle;
         }
     </style>
+
     <div class="col-md-12 mt-5 pt-3 border-bottom">
         <div class="text-dark px-0">
             <p class="mb-1"><a href="{{ route('admin.dashboard') }}"><i class="fa fa-home"></i> Dashboard / </a><a
                     href="" class="active-slink">Product List</a> <span class="top-date">Total Products:
                     {{ $products->total() }}</span></p>
-
         </div>
     </div>
 
@@ -69,124 +69,33 @@
                             @if (Session::has('error-message'))
                                 <p class="alert alert-danger">{{ Session::get('error-message') }}</p>
                             @endif
-                            <div class="col-8">
-                                <p class="pt-2 mb-0">Showing {{ $products->count() }} of {{ $products->total() }}</p>
-                            </div>
-                            <div class="col-4 mt-1">
-                                <input type="text" class="col-10 m-1 mx-0" id="searchKey" style="float: right;"
-                                    placeholder="Search product by name or code ">
-                                <div id="search_list" class="col-10 px-0"
-                                    style="position: absolute; margin-top: 35px;float: right;right:0px;z-index: 1;background: white;box-shadow: 0 0 15px 1px #dee2e6;display: none;">
-                                </div>
-                            </div>
+                            <div class="col-4 mt-2"></div>
                         </div>
-                        <table class="table table-bordered table-hover">
+                        <table class="table table-bordered table-hover" id="product-table">
                             <thead class="bg_p_primary">
                                 <tr>
-                                    <th class="font-weight-bold" scope="col">#</th>
-                                    <th class="font-weight-bold" scope="col">Image</th>
-                                    <th class="font-weight-bold" scope="col">Name</th>
-                                    <th class="font-weight-bold" scope="col">Code</th>
-                                    <th class="font-weight-bold" scope="col">Brand</th>
-                                    <th class="font-weight-bold" scope="col">Category</th>
-                                    <th class="font-weight-bold" scope="col">Cost</th>
-                                    <th class="font-weight-bold" scope="col">Price</th>
-                                    <th class="font-weight-bold" scope="col">Unit</th>
-                                    <th class="font-weight-bold" scope="col">Alert Quantity</th>
-                                    <th class="font-weight-bold" scope="col">Stock</th>
-                                    <th class="font-weight-bold" scope="col">Actions</th>
-
+                                    <th class="font-weight-bold text-center" scope="col">#</th>
+                                    <th class="font-weight-bold text-center" scope="col">Image</th>
+                                    <th class="font-weight-bold text-center" scope="col">Name</th>
+                                    <th class="font-weight-bold text-center" scope="col">Code</th>
+                                    <th class="font-weight-bold text-center" scope="col">Brand</th>
+                                    <th class="font-weight-bold text-center" scope="col">Category</th>
+                                    <th class="font-weight-bold text-center" scope="col">Cost</th>
+                                    <th class="font-weight-bold text-center" scope="col">Price</th>
+                                    <th class="font-weight-bold text-center" scope="col">Unit</th>
+                                    <th class="font-weight-bold text-center" scope="col">Alert Quantity</th>
+                                    <th class="font-weight-bold text-center" scope="col">Stock</th>
+                                    <th class="font-weight-bold text-center" scope="col">Actions</th>
                                 </tr>
                             </thead>
-                            <tbody id="table-data">
-                                <?php $counter = 0; ?>
-                                @foreach ($products as $product)
-                                    <?php
-                                    $counter++;
-                                    $stock = StockController::stock($product->id);
-                                    $imageUrl = str_replace('public/', '', $product->image);
-                                    ?>
-                                    <tr>
-                                        <td>{{ $counter }}</td>
-                                        <td>
-                                            @if (!empty(@$product->image))
-                                                <img src="{{ asset($imageUrl) }}" alt="{{ @$product->name }}"
-                                                    class="img-rounded" style="width:35px;height:35px;">
-                                            @else
-                                                <img src="{{ asset('admin/defaultIcon/no_image.png') }}" alt="No-image"
-                                                    class="img-rounded" style="width:35px;height:35px;">
-                                            @endif
-                                        </td>
-                                        <td>{{ @$product->name }}</td>
-                                        <td>{{ @$product->code }}</td>
-                                        <td>{{ @$product->brandInfo['name'] }}</td>
-                                        <td>{{ @$product->categoryInfo['name'] }}</td>
-                                        <td style="text-align: right;">{{ number_format(@$product->purchase_price) }}</td>
-                                        <td style="text-align: right;">{{ number_format(@$product->sell_price) }}</td>
-                                        <td>{{ @$product->unitInfo['name'] }}</td>
-
-                                        <td style="text-align: right;">{{ @$product->alert_qty }}</td>
-                                        <td style="text-align:center;">
-                                            @if ($stock < @$product->alert_qty && $stock > 0)
-                                                <p class="badge badge-warning">{{ $stock }}</p>
-                                            @elseif($stock <= 0)
-                                                <p class="badge badge-danger">{{ $stock }}</p>
-                                            @else
-                                                <p class="badge bg_secondary_teal">{{ $stock }}</p>
-                                            @endif
-                                        </td>
-                                        <td style="width:120px;">
-                                            <!-- <p class="btn bg_secondary_teal p-1 px-2 mb-0" href="{{ route('admin.product.productDetails', $product->id) }}" style="font-size: 13px;cursor:pointer;" title="product Details"> <i class="fa-fw fa fa-eye"></i></p> -->
-                                            <p class="btn bg_secondary_teal p-1 px-2 mb-0 productDetails"
-                                                style="font-size: 13px;cursor:pointer;" title="product Details"
-                                                data-pro_id="{{ @$product->id }}"> <i class="fa-fw fa fa-eye"></i></p>
-                                            <p class="btn bg_p_primary p-1 mb-0 px-2 edit-product"
-                                                data-productid="{{ @$product->id }}"
-                                                style="font-size: 13px;cursor:pointer;" title="Edit product"> <i
-                                                    class="fa fa-edit"></i></p>
-
-                                            <div class="del-modal <?php echo 'modal' . $counter; ?>">
-                                                <p><b>Record delete confirmation.</b></p>
-                                                <p>Are you want to really delete ?</p>
-
-                                                <button class="btn bg_p_primary py-1 del-close"
-                                                    style="background-color: #808080a6;border-color: #808080a6;">Cancel</button>
-                                                <form method="post" action="{{ route('admin.product.deleteProduct') }}"
-                                                    style="float:right;">
-                                                    @csrf
-                                                    <input type="hidden" name="id" value="{{ @$product->id }}">
-                                                    <button class="btn bg_secondary_grey py-1">Confirm</button>
-                                                </form>
-                                            </div>
-                                            <script>
-                                                $(document).ready(function() {
-                                                    $(".<?php echo 'btn' . $counter; ?>").click(function() {
-                                                        $(".<?php echo 'modal' . $counter; ?>").show('fadeOut');
-
-                                                    });
-
-                                                    $(".del-close").click(function() {
-                                                        $(".del-modal").hide('fadeIn');
-                                                    });
-                                                });
-                                            </script>
-                                            <p class="btn bg_secondary_grey mb-0 p-1 px-2 del-btn <?php echo 'btn' . $counter; ?>"
-                                                data-store_id="{{ $product->id }}"
-                                                style="font-size: 13px;relative;cursor:pointer;" title="Delete product">
-                                                <i class="fa fa-trash"></i>
-                                            </p>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
+                            <tbody></tbody>
                         </table>
-                        <br>
-                        {{ @$products->links() }}
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
     <!-- Modal -->
     <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -196,7 +105,6 @@
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
                 <div class="modal-body">
-
                     <form method="post" action="#" entype="multipart/form-data">
                         @csrf
                         <div class="form-group">
@@ -288,7 +196,6 @@
 
                 </div>
                 <div class="modal-footer">
-
                     <div class="form-group">
                         <input type="submit" class="btn btn-primary" value="Add Product">
                     </div>
@@ -298,17 +205,59 @@
         </div>
     </div>
     </div>
-    <!-- Modal -->
-    <div class="modal fade bd-example-modal-lg productModal" tabindex="-1" role="dialog"
-        aria-labelledby="myLargeModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content p-3 modal-data">
 
-            </div>
-        </div>
-    </div>
+
     <script>
         $(document).ready(function() {
+            $('#product-table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('admin.productList') }}",
+                columns: [{
+                        data: 'DT_RowIndex',
+                        orderable: false,
+                        searchable: false
+                    },
+                    {
+                        data: 'image'
+                    },
+                    {
+                        data: 'name'
+                    },
+                    {
+                        data: 'code'
+                    },
+                    {
+                        data: 'brand'
+                    },
+                    {
+                        data: 'category'
+                    },
+                    {
+                        data: 'purchase_price'
+                    },
+                    {
+                        data: 'sell_price'
+                    },
+                    {
+                        data: 'unit'
+                    },
+                    {
+                        data: 'alert_qty'
+                    },
+                    {
+                        data: 'stock'
+                    },
+                    {
+                        data: 'actions'
+                    }
+                ],
+                columnDefs: [{
+                    targets: '_all',
+                    className: 'dataTable-text-center',
+                    "orderable": false
+                }, ]
+            });
             $("#category").on('change', function() {
                 var catId = $(this).val();
                 //ajax
@@ -324,10 +273,8 @@
                     },
                     dataType: 'json',
                     success: function(data) {
-                        console.log(data);
                         $('#subcategory').empty();
                         $.each(data, function(index, subcatObj) {
-
                             $("#subcategory").append('<option value ="' + subcatObj.id +
                                 '">' + subcatObj.name + '</option>');
                         });
@@ -339,36 +286,6 @@
                 });
                 //endajax
             });
-            //search product
-            $("#searchKey").on('keyup', function() {
-                var key = $(this).val();
-                //ajax
-                if (key == '') {
-                    $("#search_list").html('');
-                } else {
-                    $.ajax({
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        },
-                        url: "{{ route('admin.product.searchProducts') }}",
-                        type: "POST",
-                        data: {
-                            'key': key
-                        },
-                        //dataType:'json',
-                        success: function(data) {
-                            $("#search_list").css('display', 'block');
-                            $("#search_list").html(data);
-                        },
-                        error: function() {
-                            // toastr.error("Something went Wrong, Please Try again.");
-                        }
-                    });
-
-                    //end ajax
-                }
-            });
-
 
             //edit product
             $(".edit-product").click(function() {
@@ -392,8 +309,30 @@
                 });
             });
 
+            $(document).on('click', '.edit-product', function() {
+                var productid = $(this).data('productid');
+
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: "{{ route('admin.product.productEdit') }}",
+                    type: "POST",
+                    data: {
+                        'productid': productid
+                    },
+                    success: function(data) {
+                        $(".modal-data").html(data);
+                        $('.productModal').modal('show');
+                    },
+                    error: function() {
+                        toastr.error("Something went Wrong, Please Try again.");
+                    }
+                });
+            });
+
             //product details
-            $(".productDetails").click(function() {
+            $(document).on('click', '.productDetails', function() {
                 var pro_id = $(this).data('pro_id');
                 $.ajax({
                     headers: {
@@ -405,7 +344,6 @@
                         'pro_id': pro_id
                     },
                     success: function(data) {
-                        console.log(data);
                         $(".modal-data").html(data);
                         $('.productModal').modal('show');
                     },
@@ -414,6 +352,12 @@
                     }
                 });
             });
+
+            $(document).on('click', '.del-btn', function() {
+                $('.del-modal').modal('open');
+            });
+
+
         });
     </script>
 @endsection

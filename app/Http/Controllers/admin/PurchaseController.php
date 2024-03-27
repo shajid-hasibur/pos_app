@@ -88,7 +88,6 @@ class PurchaseController extends Controller
 
   public function purchaseSave(Request $request)
   {
-    dd($request->all());
     $request->validate([
       'purchase_date' => 'required',
       'supplier_id' => 'required',

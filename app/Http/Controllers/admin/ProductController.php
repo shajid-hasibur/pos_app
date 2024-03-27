@@ -22,12 +22,86 @@ use App\promotion;
 use App\SubCategory;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Str;
+use Yajra\DataTables\Facades\DataTables;
 
 class ProductController extends Controller
 {
 
     public function productList()
     {
+        if (request()->ajax()) {
+            $csrfToken = csrf_token();
+            $products = Products::with('categoryInfo')
+                ->select('id', 'image', 'name', 'code', 'brand', 'category', 'purchase_price', 'sell_price', 'unit', 'alert_qty')
+                ->get();
+
+            foreach ($products as $product) {
+                $product->stock = StockController::stock($product->id);
+                $stock = (int)$product->stock;
+                if ($stock < $product->alert_qty && $stock > 0) {
+                    $product->stock_html = '<p class="badge badge-warning">' . $stock . '</p>';
+                } elseif ($stock <= 0) {
+                    $product->stock_html = '<p class="badge badge-danger">' . $stock . '</p>';
+                } else {
+                    $product->stock_html = '<p class="badge bg_secondary_teal">' . $stock . '</p>';
+                }
+
+                $deleteModalHtml = '
+                    <div class="del-modal modal-' . $product->id . ' text-left" style="display: none;">
+                        <p><b>Record delete confirmation.</b></p>
+                        <p>Are you sure you want to delete this record?</p>
+                        <button class="btn bg_p_primary py-1 del-close" style="background-color: #808080a6;border-color: #808080a6;">Cancel</button>
+                        <form method="post" action="' . route('admin.product.deleteProduct') . '" style="float:right;">
+                            <input type="hidden" name="_token" value="' . $csrfToken . '">
+                            <input type="hidden" name="id" value="' . $product->id . '">
+                            <button type="submit" class="btn bg_secondary_grey py-1">Confirm</button>
+                        </form>
+                    </div>
+                    <script>
+                        $(document).ready(function() {
+                            $(".btn-delete-' . $product->id . '").click(function() {
+                                $(".modal-' . $product->id . '").show("fadeOut");
+                            });
+
+                            $(".del-close").click(function() {
+                                $(".del-modal").hide("fadeIn");
+                            });
+                        });
+                    </script>
+                ';
+
+                $buttonsHtml = '
+                    <div class="button-container" style="text-align: center;">
+                        <p class="btn bg_secondary_teal p-1 px-2 mb-0 productDetails" style="font-size: 13px;cursor:pointer;" title="product Details" data-pro_id="' . $product->id . '"><i class="fa-fw fa fa-eye"></i></p>
+                        <p class="btn bg_p_primary p-1 mb-0 px-2 edit-product" data-productid="' . $product->id . '" style="font-size: 13px;cursor:pointer;" title="Edit product"><i class="fa fa-edit"></i></p>
+                        <p class="btn bg_secondary_grey mb-0 p-1 px-2 del-btn btn-delete-' . $product->id . '" data-store_id="' . $product->id . '" style="font-size: 13px;relative;cursor:pointer;" title="Delete product"><i class="fa fa-trash"></i></p>
+                    </div>
+                ';
+
+                $product->action_buttons_html = $buttonsHtml;
+                $product->delete_modal_html = $deleteModalHtml;
+            }
+
+            return DataTables::of($products)
+                ->addIndexColumn()
+                ->addColumn('category', function ($product) {
+                    return $product->categoryInfo['name'];
+                })
+                ->addColumn('stock', function ($product) {
+                    return $product->stock_html;
+                })
+                ->addColumn('image', function ($product) {
+                    $imageUrl = $product->image ? asset($product->image) : asset('admin/defaultIcon/no_image.png');
+                    $img = '<img src="' . $imageUrl . '" alt="Product Image" class="img-rounded" style="width:35px;height:35px;">';
+                    return $img;
+                })
+                ->addColumn('actions', function ($product) {
+                    return $product->action_buttons_html . $product->delete_modal_html;
+                })
+                ->escapeColumns([])
+                ->make(true);
+        }
+
         $suppliers = Supplier::all();
         $units = Units::all();
         $categories = Category::all();
@@ -36,6 +110,8 @@ class ProductController extends Controller
         $products = Products::paginate(10);
         $lastId = Products::orderBy('id', 'desc')->take(1)->first();
         $lastId = $lastId->id + 1;
+
+        // dd($dataTable);
         return view('admin.modules.product.productlists')->with([
             'suppliers' => $suppliers,
             'units' => $units,
@@ -210,7 +286,6 @@ class ProductController extends Controller
             'totalPurchase' => $totalPurchase,
             'totalsale' => $totalsale,
             'inStock' => $inStock,
-
         ]);
     }
     public function quantityAdjustment()
