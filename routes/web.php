@@ -78,6 +78,8 @@ Route::group(['middleware' => 'auth:admin', 'namespace' => 'admin', 'as' => 'adm
     Route::get('/attendence_list', 'HomeController@attendence_list')->name('attendence_list');
     Route::get('/attendence/data', 'HomeController@attendenceData')->name('attendenceData');
     Route::post('/add_attendence', 'HomeController@add_attendence')->name('add_attendence');
+    Route::get('subscription/product/page', 'PaymentController@index')->name('subscription.product.view');
+    Route::post('/saas/product/purchase', 'PaymentController@payment')->name('saas.product.payment');
 });
 
 //store attendence

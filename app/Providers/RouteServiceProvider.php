@@ -54,9 +54,6 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapReportRoutes();
 
         $this->mapPosRoutes();
-
-
-
         //
     }
 
@@ -70,8 +67,8 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapWebRoutes()
     {
         Route::middleware('web')
-        ->namespace($this->namespace)
-        ->group(base_path('routes/web.php'));
+            ->namespace($this->namespace)
+            ->group(base_path('routes/web.php'));
     }
 
     /**
@@ -84,73 +81,73 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapApiRoutes()
     {
         Route::prefix('api')
-        ->middleware('api')
-        ->namespace($this->namespace)
-        ->group(base_path('routes/api.php'));
+            ->middleware('api')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/api.php'));
     }
 
     protected function mapAdminRoutes()
     {
         Route::prefix('admin')
-        ->middleware('web')
-        ->namespace($this->namespace)
-        ->group(base_path('routes/admin.php'));
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/admin.php'));
     }
 
     protected function mapPosRoutes()
     {
         Route::prefix('pos')
-        ->middleware('web')
-        ->namespace($this->namespace)
-        ->group(base_path('routes/pos.php'));
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/pos.php'));
     }
     protected function mapProductRoutes()
     {
         Route::prefix('product')
-        ->middleware('web')
-        ->namespace($this->namespace)
-        ->group(base_path('routes/product.php'));
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/product.php'));
     }
     protected function mapSalesRoutes()
     {
         Route::prefix('sales')
-        ->middleware('web')
-        ->namespace($this->namespace)
-        ->group(base_path('routes/sales.php'));
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/sales.php'));
     }
     protected function mapPurchaseRoutes()
     {
         Route::prefix('purchase')
-        ->middleware('web')
-        ->namespace($this->namespace)
-        ->group(base_path('routes/purchase.php'));
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/purchase.php'));
     }
     protected function mapPeopleRoutes()
     {
         Route::prefix('people')
-        ->middleware('web')
-        ->namespace($this->namespace)
-        ->group(base_path('routes/people.php'));
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/people.php'));
     }
     protected function mapSettingRoutes()
     {
         Route::prefix('setting')
-        ->middleware('web')
-        ->namespace($this->namespace)
-        ->group(base_path('routes/setting.php'));
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/setting.php'));
     }
     protected function mapSmsRoutes()
     {
         Route::prefix('sms')
-        ->middleware('web')
-        ->namespace($this->namespace)
-        ->group(base_path('routes/sms.php'));
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/sms.php'));
     }
     protected function mapReportRoutes()
     {
         Route::prefix('reports')
-        ->middleware('web')
-        ->namespace($this->namespace)
-        ->group(base_path('routes/report.php'));
+            ->middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/report.php'));
     }
 }

@@ -144,12 +144,12 @@
 
         .task-btn {
             /* color:#428bca;
-   cursor: pointer;
-   margin-bottom: 0px;
-   font-size: 20px;
-   padding-top: 5px;
-   padding-left: 7px;
-   padding-right: 7px; */
+            cursor: pointer;
+            margin-bottom: 0px;
+            font-size: 20px;
+            padding-top: 5px;
+            padding-left: 7px;
+            padding-right: 7px; */
         }
 
         .task-btn:active {
@@ -548,6 +548,10 @@
                             <li>
                                 <a class="dropdown-item" href="{{ route('admin.profile') }}"><i
                                         class="fa fa-cog"></i> Setting</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{{ route('admin.subscription.product.view') }}"><i
+                                        class="fas fa-dollar-sign"></i>&nbsp;Subscriptions</a>
                             </li>
                             <li>
                                 <a class="dropdown-item" href="{{ route('admin.logout') }}">

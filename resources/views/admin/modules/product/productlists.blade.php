@@ -265,6 +265,8 @@
                     "orderable": false
                 }]
             });
+
+
             $("#category").on('change', function() {
                 var catId = $(this).val();
                 //ajax
