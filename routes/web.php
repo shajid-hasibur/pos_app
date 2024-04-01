@@ -80,6 +80,7 @@ Route::group(['middleware' => 'auth:admin', 'namespace' => 'admin', 'as' => 'adm
     Route::post('/add_attendence', 'HomeController@add_attendence')->name('add_attendence');
     Route::get('subscription/product/page', 'PaymentController@index')->name('subscription.product.view');
     Route::post('/saas/product/purchase', 'PaymentController@payment')->name('saas.product.payment');
+    Route::post('saas/payment/success', 'PaymentController@success')->name('payment.success');
 });
 
 //store attendence
