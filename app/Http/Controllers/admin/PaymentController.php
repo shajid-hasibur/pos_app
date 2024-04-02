@@ -8,6 +8,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use App\PaymentDetail;
+use App\UserSubscription;
+use Brian2694\Toastr\Facades\Toastr;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Cache;
 
 class PaymentController extends Controller
 {
@@ -22,6 +26,7 @@ class PaymentController extends Controller
 
         if ($server['selectedServer'] == true) {
             $userData = [
+                'id' => Auth::user()->id,
                 'customer_name' => Auth::user()->first_name . " " . Auth::user()->last_name,
                 'customer_email' => Auth::user()->email,
                 'customer_address' => Auth::user()->address,
@@ -46,22 +51,27 @@ class PaymentController extends Controller
     protected function initPayment($server, $data)
     {
         try {
+            Cache::put('package-info', $data);
             $url = $server['url'];
             $store_id = config('walletmix.store_id');
             $store_key = config('walletmix.store_key');
             $store_username = config('walletmix.store_username');
             $store_user_password = config('walletmix.store_user_password');
             $order_id = 1;
-            $reference_no = Str::uuid();
             $authorization = 'Basic ' . base64_encode("$store_username:$store_user_password");
             $options = base64_encode("s=localhost:8000,i=127.0.0.1");
+
+            $random_refs_id = mt_rand(1111111111, 9999999999);
+            while (PaymentDetail::where('merchant_ref_id', $random_refs_id)->exists()) {
+                $random_refs_id = mt_rand(1111111111, 9999999999);
+            }
 
             $curl = curl_init();
 
             $data = [
                 'wmx_id' => $store_id,
                 'merchant_order_id' => $order_id,
-                'merchant_ref_id' => mt_rand(1111111111, 9999999999),
+                'merchant_ref_id' => $random_refs_id,
                 'app_name' => 'localhost:8000',
                 'cart_info' => $store_id . ',http://localhost:8000,MyApp',
                 'customer_name' => $data['customer_name'],
@@ -104,8 +114,23 @@ class PaymentController extends Controller
     {
         $response = json_decode($request->merchant_txn_data, true);
         $data = $this->checkPayment($response);
-        if ($data) {
+
+        if ($data['txn_status'] == '1000') {
             $store = $this->storePaymentDetails($data);
+            if ($store) {
+                $subcription = $this->userSubscription($store);
+                Toastr::success("Payment successful you can now use full application.", "Success", ["positionClass" => "toast-top-center"]);
+                return redirect()->route('admin.dashboard');
+            }
+        } elseif ($data['txn_status'] == '1001') {
+            Toastr::error("Payment transaction rejected. To use our full system please make a payment.", "Error", ["positionClass" => "toast-top-center"]);
+            return redirect()->route('admin.dashboard');
+        } elseif ($data['txn_status'] == '1009') {
+            Toastr::error("Payment transaction canceled. To use our full system please make a payment.", "Error", ["positionClass" => "toast-top-center"]);
+            return redirect()->route('admin.dashboard');
+        } else {
+            Toastr::error("Payment transaction failed.", "Error", ["positionClass" => "toast-top-center"]);
+            return redirect()->route('admin.dashboard');
         }
     }
 
@@ -177,7 +202,6 @@ class PaymentController extends Controller
     protected function storePaymentDetails($data)
     {
 
-
         $customerDetails = json_decode($data['customer_details'], true);
         $customerPhone = $customerDetails['customer_phone'];
         $userId = Admin::select('id')->where('mobile', $customerPhone)->first()->id;
@@ -211,8 +235,36 @@ class PaymentController extends Controller
         $paymentDetail->statusCode = $data['statusCode'];
         $paymentDetail->user_id = $userId;
 
-        // Save the PaymentDetail instance to the database
         $paymentDetail->save();
         return $paymentDetail;
+    }
+
+    protected function userSubscription($data)
+    {
+        $days = "";
+        $cache = Cache::get('package-info');
+
+        if ($cache['product_desc'] === "Monthly Subscription") {
+            $days = 30;
+        }
+        if ($cache['product_desc'] === "Yearly Subscription") {
+            $days = 365;
+        }
+
+        $current_date_object = Carbon::now();
+        $current_date = $current_date_object->toDateString();
+
+        $new_date = $current_date_object->addDays($days);
+        $new_date = $new_date->toDateString();
+
+        $userSubscription = new UserSubscription();
+        $userSubscription->user_id = $cache['id'];
+        $userSubscription->payment_details_id = $data->id;
+        $userSubscription->package_name = $cache['product_desc'];
+        $userSubscription->package_price = $cache['amount'];
+        $userSubscription->purchase_date = $current_date;
+        $userSubscription->subscription_end_date = $new_date;
+        $userSubscription->days_left = $days;
+        $userSubscription->save();
     }
 }
