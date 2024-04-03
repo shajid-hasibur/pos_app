@@ -5,7 +5,7 @@
 @endsection
 
 @section('adminContent')
-    <div class="container d-flex justify-content-center align-items-center">
+    <div class="container d-flex justify-content-center align-items-center mt-5">
         <div class="card m-2" style="width: 18rem;">
             <div class="card-body">
                 <form action="{{ route('admin.saas.product.payment') }}" method="post">
@@ -30,5 +30,9 @@
                 </form>
             </div>
         </div>
+
+    </div>
+    <div class="container d-flex justify-content-center align-items-center mt-5">
+        <button class="btn btn-secondary" type="submit">Check Your Package</button>
     </div>
 @endsection

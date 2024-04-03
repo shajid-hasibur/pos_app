@@ -22,29 +22,36 @@ class PaymentController extends Controller
 
     public function payment(Request $request)
     {
-        $server = $this->checkServerStatus();
+        $check = $this->checkSubscription();
 
-        if ($server['selectedServer'] == true) {
-            $userData = [
-                'id' => Auth::user()->id,
-                'customer_name' => Auth::user()->first_name . " " . Auth::user()->last_name,
-                'customer_email' => Auth::user()->email,
-                'customer_address' => Auth::user()->address,
-                'customer_phone' => Auth::user()->mobile,
-                'product_desc' => $request->product_name,
-                'amount' => $request->product_price,
-            ];
+        if ($check == "0") {
+            $server = $this->checkServerStatus();
 
-            $response = $this->initPayment($server, $userData);
+            if ($server['selectedServer'] == true) {
+                $userData = [
+                    'id' => Auth::user()->id,
+                    'customer_name' => Auth::user()->first_name . " " . Auth::user()->last_name,
+                    'customer_email' => Auth::user()->email,
+                    'customer_address' => Auth::user()->address,
+                    'customer_phone' => Auth::user()->mobile,
+                    'product_desc' => $request->product_name,
+                    'amount' => $request->product_price,
+                ];
 
-            if (isset($response['token'])) {
-                $redirect = 'https://sandbox.walletmix.com/bank-payment-process/' . $response['token'];
-                return redirect($redirect);
+                $response = $this->initPayment($server, $userData);
+
+                if (isset($response['token'])) {
+                    $redirect = 'https://sandbox.walletmix.com/bank-payment-process/' . $response['token'];
+                    return redirect($redirect);
+                } else {
+                    dd($response);
+                }
             } else {
-                dd($response);
+                dd('Server is sleeping');
             }
         } else {
-            dd('server is sleeping');
+            Toastr::warning("You already have an active subscription. Try again after subscription expire.", "Warning", ["positionClass" => "toast-top-center"]);
+            return redirect()->back();
         }
     }
 
@@ -57,9 +64,15 @@ class PaymentController extends Controller
             $store_key = config('walletmix.store_key');
             $store_username = config('walletmix.store_username');
             $store_user_password = config('walletmix.store_user_password');
-            $order_id = 1;
             $authorization = 'Basic ' . base64_encode("$store_username:$store_user_password");
             $options = base64_encode("s=localhost:8000,i=127.0.0.1");
+
+            $order_id = mt_rand(111111, 999999);
+            while (UserSubscription::where('order_id', $order_id)->exists()) {
+                $order_id = mt_rand(111111, 999999);
+            }
+
+            Cache::put('order_id', $order_id);
 
             $random_refs_id = mt_rand(1111111111, 9999999999);
             while (PaymentDetail::where('merchant_ref_id', $random_refs_id)->exists()) {
@@ -208,32 +221,32 @@ class PaymentController extends Controller
 
         $paymentDetail = new PaymentDetail();
 
-        $paymentDetail->ref_id = $data['ref_id'];
-        $paymentDetail->token = $data['token'];
-        $paymentDetail->merchant_req_amount = $data['merchant_req_amount'];
-        $paymentDetail->merchant_ref_id = $data['merchant_ref_id'];
-        $paymentDetail->merchant_currency = $data['merchant_currency'];
-        $paymentDetail->merchant_amount_bdt = $data['merchant_amount_bdt'];
-        $paymentDetail->conversion_rate = $data['conversion_rate'];
-        $paymentDetail->service_ratio = $data['service_ratio'];
-        $paymentDetail->wmx_charge_bdt = $data['wmx_charge_bdt'];
-        $paymentDetail->emi_ratio = $data['emi_ratio'];
-        $paymentDetail->emi_charge = $data['emi_charge'];
-        $paymentDetail->bank_amount_bdt = $data['bank_amount_bdt'];
-        $paymentDetail->discount_bdt = $data['discount_bdt'];
-        $paymentDetail->merchant_order_id = $data['merchant_order_id'];
-        $paymentDetail->request_ip = $data['request_ip'];
-        $paymentDetail->txn_status = $data['txn_status'];
-        $paymentDetail->extra_json = $data['extra_json'];
-        $paymentDetail->card_details = $data['card_details'];
-        $paymentDetail->is_foreign = $data['is_foreign'];
-        $paymentDetail->payment_card = $data['payment_card'];
-        $paymentDetail->card_code = $data['card_code'];
-        $paymentDetail->payment_method = $data['payment_method'];
-        $paymentDetail->init_time = $data['init_time'];
-        $paymentDetail->txn_time = $data['txn_time'];
-        $paymentDetail->statusCode = $data['statusCode'];
-        $paymentDetail->user_id = $userId;
+        $paymentDetail->ref_id                  = $data['ref_id'];
+        $paymentDetail->token                   = $data['token'];
+        $paymentDetail->merchant_req_amount     = $data['merchant_req_amount'];
+        $paymentDetail->merchant_ref_id         = $data['merchant_ref_id'];
+        $paymentDetail->merchant_currency       = $data['merchant_currency'];
+        $paymentDetail->merchant_amount_bdt     = $data['merchant_amount_bdt'];
+        $paymentDetail->conversion_rate         = $data['conversion_rate'];
+        $paymentDetail->service_ratio           = $data['service_ratio'];
+        $paymentDetail->wmx_charge_bdt          = $data['wmx_charge_bdt'];
+        $paymentDetail->emi_ratio               = $data['emi_ratio'];
+        $paymentDetail->emi_charge              = $data['emi_charge'];
+        $paymentDetail->bank_amount_bdt         = $data['bank_amount_bdt'];
+        $paymentDetail->discount_bdt            = $data['discount_bdt'];
+        $paymentDetail->merchant_order_id       = $data['merchant_order_id'];
+        $paymentDetail->request_ip              = $data['request_ip'];
+        $paymentDetail->txn_status              = $data['txn_status'];
+        $paymentDetail->extra_json              = $data['extra_json'];
+        $paymentDetail->card_details            = $data['card_details'];
+        $paymentDetail->is_foreign              = $data['is_foreign'];
+        $paymentDetail->payment_card            = $data['payment_card'];
+        $paymentDetail->card_code               = $data['card_code'];
+        $paymentDetail->payment_method          = $data['payment_method'];
+        $paymentDetail->init_time               = $data['init_time'];
+        $paymentDetail->txn_time                = $data['txn_time'];
+        $paymentDetail->statusCode              = $data['statusCode'];
+        $paymentDetail->user_id                 = $userId;
 
         $paymentDetail->save();
         return $paymentDetail;
@@ -243,6 +256,7 @@ class PaymentController extends Controller
     {
         $days = "";
         $cache = Cache::get('package-info');
+        $orderId = Cache::get('order_id');
 
         if ($cache['product_desc'] === "Monthly Subscription") {
             $days = 30;
@@ -258,13 +272,37 @@ class PaymentController extends Controller
         $new_date = $new_date->toDateString();
 
         $userSubscription = new UserSubscription();
-        $userSubscription->user_id = $cache['id'];
+        $userSubscription->admin_id = $cache['id'];
         $userSubscription->payment_details_id = $data->id;
         $userSubscription->package_name = $cache['product_desc'];
         $userSubscription->package_price = $cache['amount'];
+        $userSubscription->order_id = $orderId;
         $userSubscription->purchase_date = $current_date;
         $userSubscription->subscription_end_date = $new_date;
         $userSubscription->days_left = $days;
         $userSubscription->save();
+
+        Cache::forget('package-info');
+        Cache::forget('order_id');
+        return $userSubscription;
+    }
+
+    protected function checkSubscription()
+    {
+        $user = Auth::user();
+        $subscription = UserSubscription::where('admin_id', $user->id)->first();
+
+        if ($subscription) {
+            $end_date = Carbon::parse($subscription->subscription_end_date);
+            $current_date = Carbon::now();
+
+            if ($end_date->isAfter($current_date)) {
+                return "1";
+            } else {
+                return "0";
+            }
+        } else {
+            return "0";
+        }
     }
 }

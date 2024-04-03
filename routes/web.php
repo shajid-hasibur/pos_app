@@ -61,7 +61,6 @@ Route::group(['middleware' => 'auth:admin', 'namespace' => 'admin', 'as' => 'adm
     Route::put('/website/catagory-update', 'WebcatController@updateCatagory')->name('webcat.updateCatagory');
     Route::post('/website/catagory-delete', 'WebcatController@deleteCatagory')->name('webcat.deleteCatagory');
 
-
     Route::get('website/pruduct', 'WebproController@index')->name('webpro');
     Route::get('/website/pruduct/add', 'WebproController@create')->name('webpro.create');
     Route::post('/website/pruduct/store', 'WebproController@store')->name('webpro.store');
@@ -78,9 +77,12 @@ Route::group(['middleware' => 'auth:admin', 'namespace' => 'admin', 'as' => 'adm
     Route::get('/attendence_list', 'HomeController@attendence_list')->name('attendence_list');
     Route::get('/attendence/data', 'HomeController@attendenceData')->name('attendenceData');
     Route::post('/add_attendence', 'HomeController@add_attendence')->name('add_attendence');
+
     Route::get('subscription/product/page', 'PaymentController@index')->name('subscription.product.view');
     Route::post('/saas/product/purchase', 'PaymentController@payment')->name('saas.product.payment');
     Route::post('saas/payment/success', 'PaymentController@success')->name('payment.success');
+
+    Route::get('counting/days', 'SubscriptionController@decrementDays')->name('sub.decrementDays');
 });
 
 //store attendence

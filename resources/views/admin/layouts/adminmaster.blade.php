@@ -295,7 +295,7 @@
     use App\Http\Controllers\admin\StockController;
     $lowStock = StockController::numberOfLowStockProduct();
     ?>
-    <nav class="navbar navbar-expand-lg shadow navbar-light bg-light " id="navbar" style="padding:1px; ">
+    <nav class="navbar navbar-expand-lg shadow navbar-light bg-light days_left" id="navbar" style="padding:1px; ">
         <a class="navbar-brand" style="padding:0px;" href="{{ route('admin.dashboard') }}">
             <img class=" ml-4" src="{{ asset('frontEnd/images/codetree.png') }}" style="width:100px ;">
         </a>
@@ -322,7 +322,7 @@
     </li> -->
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link text-dark dropdown-toggle" href="#" data-toggle="dropdown">
+                    <a class="nav-link text-dark dropdown-toggle days_left" href="#" data-toggle="dropdown">
                         Products
                     </a>
                     <ul class="dropdown-menu p-0" id="dropdown-background">
@@ -346,7 +346,7 @@
                 </li>
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link text-dark dropdown-toggle" href="#" data-toggle="dropdown">
+                    <a class="nav-link text-dark dropdown-toggle days_left" href="#" data-toggle="dropdown">
                         Sales
                     </a>
                     <ul class="dropdown-menu p-0" id="dropdown-background">
@@ -362,7 +362,7 @@
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link text-dark dropdown-toggle" href="#" data-toggle="dropdown">
+                    <a class="nav-link text-dark dropdown-toggle days_left" href="#" data-toggle="dropdown">
                         Purchase
                     </a>
                     <ul class="dropdown-menu p-0" id="dropdown-background">
@@ -381,7 +381,7 @@
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link text-dark dropdown-toggle" href="#" data-toggle="dropdown">
+                    <a class="nav-link text-dark dropdown-toggle days_left" href="#" data-toggle="dropdown">
                         People
                     </a>
                     <ul class="dropdown-menu p-0" id="dropdown-background">
@@ -405,7 +405,7 @@
                     </ul>
                 </li>
                 <li class="nav-item dropdown ">
-                    <a class="nav-link text-dark dropdown-toggle" href="#" data-toggle="dropdown">
+                    <a class="nav-link text-dark dropdown-toggle days_left" href="#" data-toggle="dropdown">
                         Promotion
                     </a>
                     <ul class="dropdown-menu p-0" id="dropdown-background">
@@ -429,7 +429,7 @@
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link text-dark dropdown-toggle" href="#" data-toggle="dropdown">
+                    <a class="nav-link text-dark dropdown-toggle days_left" href="#" data-toggle="dropdown">
                         Setting
                     </a>
                     <ul class="dropdown-menu p-0" id="dropdown-background">
@@ -463,7 +463,7 @@
                 </li>
 
                 <li class="nav-item dropdown ">
-                    <a class="nav-link text-dark dropdown-toggle" href="#" data-toggle="dropdown">
+                    <a class="nav-link text-dark dropdown-toggle days_left" href="#" data-toggle="dropdown">
                         Reports
                     </a>
                     <ul class="dropdown-menu p-0" id="dropdown-background">
@@ -488,7 +488,7 @@
                     </ul>
                 </li>
                 <li class="nav-item dropdown ">
-                    <a class="nav-link text-dark dropdown-toggle" href="#" data-toggle="dropdown">
+                    <a class="nav-link text-dark dropdown-toggle days_left" href="#" data-toggle="dropdown">
                         Attendence
                     </a>
                     <ul class="dropdown-menu p-0" id="dropdown-background">
@@ -671,9 +671,17 @@
         @endif
     </script>
     <script>
-        // document.addEventListener("contextmenu",function(hide){
-        // hide.preventDefault();
-        // });
+        $(document).ready(function() {
+            $('.days_left').mouseenter(function() {
+                $.ajax({
+                    url: "{{ route('admin.sub.decrementDays') }}",
+                    type: "GET",
+                    success: function(data) {
+
+                    }
+                })
+            });
+        });
     </script>
 
 </body>
