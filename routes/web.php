@@ -48,8 +48,12 @@ Route::group(['namespace' => 'frontEnd'], function () {
 
 //web site category
 
-Route::group(['middleware' => 'auth:admin', 'namespace' => 'admin', 'as' => 'admin.', 'prefix' => 'admin'], function () {
-
+Route::group([
+    'middleware' => ['auth:admin'],
+    'namespace' => 'admin',
+    'as' => 'admin.',
+    'prefix' => 'admin'
+], function () {
     Route::get('/website/category', 'WebcatController@index')->name('webcat');
     Route::get('/website/category/add', 'WebcatController@create')->name('webcat.create');
     Route::post('/website/category/store', 'WebcatController@store')->name('webcat.store');
@@ -83,7 +87,10 @@ Route::group(['middleware' => 'auth:admin', 'namespace' => 'admin', 'as' => 'adm
     Route::post('saas/payment/success', 'PaymentController@success')->name('payment.success');
 
     Route::get('counting/days', 'SubscriptionController@decrementDays')->name('sub.decrementDays');
+    Route::get('user/package/details', 'SubscriptionController@packageDetails')->name('package.details');
+    Route::get('subscription/expired', 'SubscriptionController@expiredPage')->name('subscription.expired');
 });
+
 
 //store attendence
 

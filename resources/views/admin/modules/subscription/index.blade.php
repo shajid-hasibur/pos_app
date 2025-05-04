@@ -1,7 +1,7 @@
 @extends('admin.layouts.adminmaster')
 
 @section('adminTitle')
-    Attendence
+    Buy Subscription
 @endsection
 
 @section('adminContent')
@@ -30,9 +30,8 @@
                 </form>
             </div>
         </div>
-
     </div>
     <div class="container d-flex justify-content-center align-items-center mt-5">
-        <button class="btn btn-secondary" type="submit">Check Your Package</button>
+        <a class="btn btn-secondary" href="{{ route('admin.package.details') }}">Check Subscription</a>
     </div>
 @endsection

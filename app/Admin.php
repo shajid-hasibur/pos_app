@@ -34,4 +34,9 @@ class Admin extends Authenticatable
     {
         return $this->hasOne(UserSubscription::class);
     }
+
+    public function subscriptionExpired()
+    {
+        return $this->subscription_end_date < now();
+    }
 }
